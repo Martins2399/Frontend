@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo: Divs vs Semântica</title>
+</head>
+<body>
+
+    <!-- EXEMPLO RUIM / APENAS DIVS -->
+    <div id="cabecalho">
+        <h1>Meu Site (Com Divs)</h1>
+        <div id="menu">
+            <a href="#">Home</a> | <a href="#">Sobre</a>
+        </div>
+    </div>
+    <div id="conteudo">
+        <div class="artigo">
+            <h2>Título do Artigo</h2>
+            <p>Texto explicativo sobre o conteúdo...</p>
+        </div>
+    </div>
+    <div id="rodape">
+        <p>&copy; 2026 - Todos os direitos reservados</p>
+    </div>
+
+    <hr>
+
+    <!-- EXEMPLO ADEQUADO / HTML SEMÂNTICO -->
+    <header>
+        <h1>Meu Site (Com Semântica)</h1>
+        <nav>
+            <a href="#">Home</a> | <a href="#">Sobre</a>
+        </nav>
+    </header>
+    <main>
+        <article>
+            <h2>Título do Artigo</h2>
+            <p>Texto explicativo sobre o conteúdo...</p>
+        </article>
+    </main>
+    <footer>
+        <p>&copy; 2026 - Todos os direitos reservados</p>
+    </footer>
+
+</body>
+</html>
