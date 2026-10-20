@@ -1,96 +1,74 @@
 /* ==========================================
-   EXERCÍCIO 4 - PARTE 2: MENU COM FLEXBOX
+   EXERCÍCIO 4 - PARTE 3: GALERIA DE PRODUTOS
    ========================================== */
 
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f6f9;
-    color: #333;
-    line-height: 1.6;
+.secao-produtos {
+    text-align: left;
 }
 
-/* Cabeçalho moderno com Flexbox */
-header {
+/* Layout em grade visual usando Flexbox com flex-wrap */
+.produtos-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+/* Cards estilizados exclusivamente no CSS externo */
+.produto-card {
+    background-color: #ffffff;
+    border: 1px solid #e1e8ed;
+    border-radius: 8px;
+    padding: 20px;
+    width: 240px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.produto-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.produto-card h3 {
+    font-size: 18px;
+    color: #2c3e50;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.produto-card p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+    flex-grow: 1;
+}
+
+.preco {
+    font-size: 18px;
+    font-weight: bold;
+    color: #27ae60;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.botao-detalhes {
+    display: inline-block;
     background-color: #2c3e50;
     color: #fff;
-    padding: 15px 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center; /* Alinhamento vertical */
-}
-
-header h1 {
-    margin: 0;
-    font-size: 22px;
-}
-
-/* Menu de navegação com Flexbox e gap */
-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    gap: 25px; /* Espaçamento entre os links */
-    align-items: center;
-}
-
-nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s ease;
-}
-
-nav ul li a:hover {
-    color: #3498db;
-}
-
-/* Área principal (Main) */
-main {
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 30px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    padding: 10px;
     text-align: center;
-}
-
-.hero h2 {
-    color: #2c3e50;
-    font-size: 28px;
-    margin-bottom: 15px;
-}
-
-.hero p {
-    font-size: 16px;
-    color: #555;
-    margin-bottom: 25px;
-}
-
-/* Botão de chamada para ação (CTA) */
-.botao-cta {
-    display: inline-block;
-    background-color: #3498db;
-    color: #fff;
-    padding: 12px 25px;
     text-decoration: none;
-    font-weight: bold;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: font-bold;
+    transition: background-color 0.2s ease;
 }
 
-.botao-cta:hover {
-    background-color: #2980b9;
-}
-
-/* Rodapé */
-footer {
-    text-align: center;
-    padding: 15px;
-    background-color: #bdc3c7;
-    color: #2c3e50;
-    margin-top: 50px;
+.botao-detalhes:hover {
+    background-color: #34495e;
 }
