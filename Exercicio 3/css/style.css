@@ -1,19 +1,17 @@
 /* ==========================================
-   TIPOGRAFIA E REFINAMENTO VISUAL (Parte 4)
+   PARTE 5: INTERAÇÕES, HOVER E TRANSIÇÕES
    ========================================== */
 
 body {
-    /* Tarefa 3: Aplicar font-family no body */
     font-family: 'Inter', Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f8f9fa;
     color: #212529;
     line-height: 1.7;
-    font-size: 16px; /* Tamanho base padrão para leitura */
+    font-size: 16px;
 }
 
-/* Layout e Espaçamentos (Tarefa 5) */
 .container {
     max-width: 1100px;
     margin: 0 auto;
@@ -41,11 +39,10 @@ header .container {
 header h1 {
     margin: 0;
     font-size: 22px;
-    font-weight: 700; /* Tarefa 4: Peso ajustado */
+    font-weight: 700;
     letter-spacing: 0.5px;
 }
 
-/* Tarefa 4: Ajuste de pesos e tamanhos para os links do menu */
 nav ul {
     list-style: none;
     padding: 0;
@@ -58,12 +55,14 @@ nav ul li a {
     color: #ffffff;
     text-decoration: none;
     font-size: 15px;
-    font-weight: 600; /* Peso semi-bold para destaque nos links */
-    transition: color 0.2s ease;
+    font-weight: 600;
+    /* Tarefa 4: Transição suave nos links do menu */
+    transition: color 0.3s ease;
 }
 
+/* Tarefa 1: Hover no menu */
 nav ul li a:hover {
-    color: #5fa8d3;
+    color: #5fa8d3; /* Altera a cor ao passar o mouse */
 }
 
 /* Seção Hero / Início */
@@ -74,15 +73,13 @@ nav ul li a:hover {
     padding: 80px 0;
 }
 
-/* Tarefa 4: Ajuste de tamanho e peso para o h1 da seção hero (aqui representado pelo h2 principal da seção) */
 #inicio h2 {
     font-size: 40px;
-    font-weight: 700; /* Negrito forte para o título principal */
+    font-weight: 700;
     margin-bottom: 15px;
     line-height: 1.2;
 }
 
-/* Tarefa 4: Ajuste de parágrafos */
 #inicio p {
     font-size: 18px;
     font-weight: 400;
@@ -91,7 +88,7 @@ nav ul li a:hover {
     color: #e9ecef;
 }
 
-/* Estilização do Botão Principal (Tarefa 4) */
+/* Estilização e Tarefa 2: Hover no Botão Principal */
 .botao-principal {
     display: inline-block;
     background-color: #5fa8d3;
@@ -99,18 +96,25 @@ nav ul li a:hover {
     padding: 14px 30px;
     text-decoration: none;
     font-size: 16px;
-    font-weight: 700; /* Texto do botão em destaque */
+    font-weight: 700;
     border-radius: 6px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    cursor: pointer; /* Tarefa 2: Garante o cursor de clique */
+    border: 2px solid transparent;
+    /* Tarefa 4: Transição suave no botão */
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Tarefa 2: Estado hover alterando cor, fundo e sombra */
 .botao-principal:hover {
-    background-color: #cae9ff;
+    background-color: #1b4965;
+    color: #ffffff;
+    border-color: #5fa8d3;
     transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Tarefa 4: Ajuste de h2 das demais seções */
+/* Seções de Conteúdo */
 section h2 {
     font-size: 28px;
     font-weight: 700;
@@ -126,7 +130,6 @@ section p {
     margin-bottom: 15px;
 }
 
-/* Cores de fundo alternadas para as seções */
 #sobre, #contato {
     background-color: #ffffff;
 }
@@ -135,7 +138,7 @@ section p {
     background-color: #edf2f4;
 }
 
-/* Grid e Cards */
+/* Grid e Tarefa 3: Hover nos Cards e Transições */
 .cards-wrapper {
     display: flex;
     gap: 30px;
@@ -148,11 +151,14 @@ section p {
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     flex: 1;
-    transition: transform 0.3s ease;
+    /* Tarefa 4: Transição suave nos cards */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* Tarefa 3: Hover sutil nos cards (deslocamento visual e sombra maior) */
 .card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-6px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
 }
 
 .card h3 {
