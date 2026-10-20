@@ -1,3 +1,7 @@
+/* ==========================================
+   EXERCÍCIO 4 - PARTE 2: MENU COM FLEXBOX
+   ========================================== */
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -7,45 +11,86 @@ body {
     line-height: 1.6;
 }
 
+/* Cabeçalho moderno com Flexbox */
 header {
     background-color: #2c3e50;
     color: #fff;
-    padding: 20px;
-    text-align: center;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Alinhamento vertical */
 }
 
+header h1 {
+    margin: 0;
+    font-size: 22px;
+}
+
+/* Menu de navegação com Flexbox e gap */
 nav ul {
     list-style: none;
     padding: 0;
-    margin: 10px 0 0 0;
+    margin: 0;
     display: flex;
-    justify-content: center;
-    gap: 20px;
+    gap: 25px; /* Espaçamento entre os links */
+    align-items: center;
 }
 
 nav ul li a {
     color: #fff;
     text-decoration: none;
     font-weight: bold;
+    transition: color 0.3s ease;
 }
 
 nav ul li a:hover {
-    text-decoration: underline;
+    color: #3498db;
 }
 
+/* Área principal (Main) */
 main {
-    max-width: 800px;
-    margin: 30px auto;
-    padding: 20px;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 30px;
     background: #fff;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    text-align: center;
 }
 
+.hero h2 {
+    color: #2c3e50;
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 25px;
+}
+
+/* Botão de chamada para ação (CTA) */
+.botao-cta {
+    display: inline-block;
+    background-color: #3498db;
+    color: #fff;
+    padding: 12px 25px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.botao-cta:hover {
+    background-color: #2980b9;
+}
+
+/* Rodapé */
 footer {
     text-align: center;
     padding: 15px;
     background-color: #bdc3c7;
     color: #2c3e50;
-    margin-top: 40px;
+    margin-top: 50px;
 }
