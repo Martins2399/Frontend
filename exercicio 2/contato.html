@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato - Exercício 2</title>
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <header>
+        <h1>Fale Conosco</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Voltar para a Página Inicial</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main>
+        <section>
+            <h2>Formulário de Contato</h2>
+            <p>Preencha os campos abaixo para nos enviar uma mensagem:</p>
+
+            <form action="#" method="POST">
+                <!-- Campo Nome (Tarefa 2: Label) -->
+                <div>
+                    <label for="nome">Nome Completo:</label><br>
+                    <input type="text" id="nome" name="nome" required placeholder="Digite seu nome">
+                </div>
+                <br>
+
+                <!-- Campo E-mail (Tarefa 2: Label) -->
+                <div>
+                    <label for="email">E-mail:</label><br>
+                    <input type="email" id="email" name="email" required placeholder="seuemail@exemplo.com">
+                </div>
+                <br>
+
+                <!-- Campo Assunto (Tarefa 3: Select) -->
+                <div>
+                    <label for="assunto">Assunto:</label><br>
+                    <select id="assunto" name="assunto" required>
+                        <option value="">-- Selecione uma opção --</option>
+                        <option value="duvida">Dúvidas sobre Receitas</option>
+                        <option value="sugestao">Sugestão de Conteúdo</option>
+                        <option value="parceria">Parceria comercial</option>
+                        <option value="outro">Outro assunto</option>
+                    </select>
+                </div>
+                <br>
+
+                <!-- Campo Mensagem (Tarefa 3: Textarea) -->
+                <div>
+                    <label for="mensagem">Sua Mensagem:</label><br>
+                    <textarea id="mensagem" name="mensagem" rows="5" cols="40" required placeholder="Escreva sua mensagem aqui..."></textarea>
+                </div>
+                <br>
+
+                <!-- Botão Enviar -->
+                <button type="submit">Enviar Mensagem</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer>
+        <p>&copy; 2026 - Desenvolvido por <strong>Italo Martins</strong>. Todos os direitos reservados.</p>
+    </footer>
+
+</body>
+</html>

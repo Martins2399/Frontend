@@ -1,0 +1,52 @@
+/* Teste visual exigido na Tarefa 3 */
+body {
+    background-color: #f0f4f8;
+    color: #2c3e50;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #16a085;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    color: #ffffff; /* Cor aplicada no título conforme solicitado */
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+nav ul li a {
+    color: #ecf0f1;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+}
+
+section {
+    margin-bottom: 30px;
+}
+
+footer {
+    text-align: center;
+    padding: 15px;
+    background-color: #bdc3c7;
+    color: #2c3e50;
+}
