@@ -4,51 +4,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EcoTech - Inovação Sustentável</title>
-    <!-- Tarefa 3: Conexão correta do CSS externo -->
+    <!-- Conexão do CSS externo -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <!-- Header com nome fictício do produto/serviço -->
-    <header>
-        <h1>EcoTech Solutions</h1>
-        <!-- Nav com links para as seções da página -->
-        <nav>
-            <ul>
-                <li><a href="#hero">Início</a></li>
-                <li><a href="#sobre">Sobre</a></li>
-                <li><a href="#recursos">Recursos</a></li>
-            </ul>
-        </nav>
+    <!-- Header com classe container -->
+    <header class="secao">
+        <div class="container">
+            <h1>EcoTech Solutions</h1>
+            <!-- Tarefa 1: Links de navegação configurados corretamente -->
+            <nav>
+                <ul>
+                    <li><a href="#inicio">Início</a></li>
+                    <li><a href="#sobre">Sobre</a></li>
+                    <li><a href="#beneficios">Benefícios</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
-    <!-- Main com Seção Hero -->
     <main>
-        <section id="hero">
-            <h2>Transformando o Futuro com Sustentabilidade</h2>
-            <p>Conheça nossas soluções inteligentes para otimizar o consumo de energia e preservar o meio ambiente.</p>
+        <!-- Tarefa 2: ID único correspondente ao menu (#inicio) e classe .secao -->
+        <section id="inicio" class="secao">
+            <div class="container">
+                <h2>Transformando o Futuro com Sustentabilidade</h2>
+                <p>Conheça nossas soluções inteligentes para otimizar o consumo de energia e preservar o meio ambiente.</p>
+                <!-- Tarefa 3: Botão principal de chamada -->
+                <a href="#contato" class="botao-principal">Fale Conosco</a>
+            </div>
         </section>
 
-        <!-- Section Sobre -->
-        <section id="sobre">
-            <h2>Sobre a EcoTech</h2>
-            <p>Nossa missão é desenvolver tecnologias limpas que ajudem empresas e residências a reduzirem sua pegada de carbono de forma prática e automatizada.</p>
+        <!-- Tarefa 2: ID único (#sobre) -->
+        <section id="sobre" class="secao">
+            <div class="container">
+                <h2>Sobre a EcoTech</h2>
+                <p>Nossa missão é desenvolver tecnologias limpas que ajudem empresas e residências a reduzirem sua pegada de carbono de forma prática e automatizada.</p>
+            </div>
         </section>
 
-        <!-- Section Recursos ou Benefícios -->
-        <section id="recursos">
-            <h2>Nossos Benefícios</h2>
-            <ul>
-                <li>Monitoramento de consumo em tempo real</li>
-                <li>Redução imediata nos custos energéticos</li>
-                <li>Relatórios automatizados de sustentabilidade</li>
-            </ul>
+        <!-- Tarefa 2: ID único (#beneficios) com cartões reutilizáveis (.card) -->
+        <section id="beneficios" class="secao">
+            <div class="container">
+                <h2>Nossos Benefícios</h2>
+                <div class="cards-wrapper">
+                    <div class="card">
+                        <h3>Monitoramento</h3>
+                        <p>Acompanhe o consumo de energia em tempo real diretamente pelo painel.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Economia</h3>
+                        <p>Reduza imediatamente os custos operacionais e energéticos da sua casa ou empresa.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Sustentabilidade</h3>
+                        <p>Gere relatórios automatizados de impacto ambiental e pegada de carbono.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tarefa 2: ID único (#contato) -->
+        <section id="contato" class="secao">
+            <div class="container">
+                <h2>Entre em Contato</h2>
+                <p>Envie uma mensagem e descubra como podemos ajudar sua empresa a crescer de forma sustentável.</p>
+            </div>
         </section>
     </main>
 
-    <!-- Footer com seu nome e turma -->
-    <footer>
-        <p>&copy; 2026 - Desenvolvido por <strong>Italo Martins</strong> | Turma: Técnico em TI</p>
+    <!-- Rodapé -->
+    <footer class="secao">
+        <div class="container">
+            <p>&copy; 2026 - Desenvolvido por <strong>Italo Martins</strong> | Turma: Técnico em TI</p>
+        </div>
     </footer>
 
 </body>
