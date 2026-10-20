@@ -17,12 +17,46 @@
             </ul>
         </nav>
     </header>
+    
     <main>
-        <section>
+        <section class="secao-contato">
             <h2>Fale Conosco</h2>
-            <p>Entre em contato conosco para dúvidas, sugestões ou suporte.</p>
+            <p>Preencha o formulário abaixo para tirar dúvidas, solicitar suporte ou efetuar pedidos de produtos.</p>
+            
+            <form action="#" method="POST" class="formulario-contato">
+                <div class="form-grupo">
+                    <label for="nome">Nome Completo:</label>
+                    <input type="text" id="nome" name="nome" required placeholder="Digite seu nome">
+                </div>
+
+                <div class="form-grupo">
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" name="email" required placeholder="seuemail@exemplo.com">
+                </div>
+
+                <div class="form-grupo">
+                    <label for="assunto">Assunto / Produto de Interesse:</label>
+                    <select id="assunto" name="assunto" required>
+                        <option value="">Selecione uma opção</option>
+                        <option value="teclado">Teclado Mecânico Aurora</option>
+                        <option value="mouse">Mouse Gamer Pulse</option>
+                        <option value="headset">Headset Studio Lite</option>
+                        <option value="monitor">Monitor 24 Vision</option>
+                        <option value="mochila">Mochila TechPack</option>
+                        <option value="outro">Outro assunto</option>
+                    </select>
+                </div>
+
+                <div class="form-grupo">
+                    <label for="mensagem">Mensagem:</label>
+                    <textarea id="mensagem" name="mensagem" rows="5" required placeholder="Escreva sua mensagem aqui..."></textarea>
+                </div>
+
+                <button type="submit" class="botao-cta">Enviar Mensagem</button>
+            </form>
         </section>
     </main>
+
     <footer>
         <p>&copy; 2026 - Desenvolvido por Italo Martins</p>
     </footer>
