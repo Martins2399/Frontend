@@ -1,22 +1,19 @@
 /* ==========================================
-   IDENTIDADE VISUAL (Tarefa 1)
-   - Cor Principal: #1b4965 (Azul escuro/petróleo)
-   - Cor de Destaque: #5fa8d3 (Azul claro/vibrante)
-   - Cor de Fundo Clara: #f8f9fa (Cinza bem claro)
-   - Cor Escura para Textos: #212529 (Cinza escuro)
+   TIPOGRAFIA E REFINAMENTO VISUAL (Parte 4)
    ========================================== */
 
-/* Configurações Globais e Corpo (Tarefas 2 e 3) */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Tarefa 3: Aplicar font-family no body */
+    font-family: 'Inter', Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f8f9fa; /* Cor de fundo clara */
-    color: #212529; /* Cor escura para textos */
+    background-color: #f8f9fa;
+    color: #212529;
     line-height: 1.7;
+    font-size: 16px; /* Tamanho base padrão para leitura */
 }
 
-/* Classes Reutilizáveis de Espaçamento (Tarefa 3) */
+/* Layout e Espaçamentos (Tarefa 5) */
 .container {
     max-width: 1100px;
     margin: 0 auto;
@@ -24,12 +21,12 @@ body {
 }
 
 .secao {
-    padding: 60px 0; /* Espaçamento vertical confortável entre as seções */
+    padding: 60px 0;
 }
 
-/* Header (Tarefa 2) */
+/* Header e Menu */
 header {
-    background-color: #1b4965; /* Cor principal */
+    background-color: #1b4965;
     color: #ffffff;
     padding: 20px 0;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -43,10 +40,12 @@ header .container {
 
 header h1 {
     margin: 0;
-    font-size: 24px;
+    font-size: 22px;
+    font-weight: 700; /* Tarefa 4: Peso ajustado */
     letter-spacing: 0.5px;
 }
 
+/* Tarefa 4: Ajuste de pesos e tamanhos para os links do menu */
 nav ul {
     list-style: none;
     padding: 0;
@@ -58,15 +57,16 @@ nav ul {
 nav ul li a {
     color: #ffffff;
     text-decoration: none;
-    font-weight: 600;
+    font-size: 15px;
+    font-weight: 600; /* Peso semi-bold para destaque nos links */
     transition: color 0.2s ease;
 }
 
 nav ul li a:hover {
-    color: #5fa8d3; /* Cor de destaque no hover */
+    color: #5fa8d3;
 }
 
-/* Seção Hero / Início (Tarefa 2) */
+/* Seção Hero / Início */
 #inicio {
     background: linear-gradient(135deg, #1b4965, #4ca6be);
     color: #ffffff;
@@ -74,13 +74,18 @@ nav ul li a:hover {
     padding: 80px 0;
 }
 
+/* Tarefa 4: Ajuste de tamanho e peso para o h1 da seção hero (aqui representado pelo h2 principal da seção) */
 #inicio h2 {
-    font-size: 38px;
+    font-size: 40px;
+    font-weight: 700; /* Negrito forte para o título principal */
     margin-bottom: 15px;
+    line-height: 1.2;
 }
 
+/* Tarefa 4: Ajuste de parágrafos */
 #inicio p {
     font-size: 18px;
+    font-weight: 400;
     max-width: 700px;
     margin: 0 auto 25px auto;
     color: #e9ecef;
@@ -89,11 +94,12 @@ nav ul li a:hover {
 /* Estilização do Botão Principal (Tarefa 4) */
 .botao-principal {
     display: inline-block;
-    background-color: #5fa8d3; /* Cor de destaque forte */
-    color: #1b4965; /* Texto escuro/legível de alto contraste */
+    background-color: #5fa8d3;
+    color: #1b4965;
     padding: 14px 30px;
     text-decoration: none;
-    font-weight: bold;
+    font-size: 16px;
+    font-weight: 700; /* Texto do botão em destaque */
     border-radius: 6px;
     transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -104,52 +110,71 @@ nav ul li a:hover {
     transform: translateY(-2px);
 }
 
-/* Seções de Conteúdo (Tarefas 2 e 3) */
+/* Tarefa 4: Ajuste de h2 das demais seções */
+section h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1b4965;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+section p {
+    font-size: 16px;
+    font-weight: 400;
+    color: #495057;
+    margin-bottom: 15px;
+}
+
+/* Cores de fundo alternadas para as seções */
 #sobre, #contato {
     background-color: #ffffff;
 }
 
 #beneficios {
-    background-color: #edf2f4; /* Fundo levemente contrastante para os cards */
+    background-color: #edf2f4;
 }
 
-/* Grid e Estilização dos Cards (Tarefa 4) */
+/* Grid e Cards */
 .cards-wrapper {
     display: flex;
-    gap: 30px; /* Espaçamento ideal entre os cards */
+    gap: 30px;
     margin-top: 30px;
 }
 
 .card {
     background-color: #ffffff;
-    padding: 30px; /* Padding interno para conforto de leitura */
-    border-radius: 10px; /* Tarefa 4: border-radius */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Tarefa 4: box-shadow profissional */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     flex: 1;
     transition: transform 0.3s ease;
 }
 
 .card:hover {
-    transform: translateY(-5px); /* Efeito dinâmico suave ao passar o mouse */
+    transform: translateY(-5px);
 }
 
 .card h3 {
     margin-top: 0;
-    color: #1b4965; /* Cor principal aplicada aos títulos dos cards */
+    color: #1b4965;
     font-size: 20px;
+    font-weight: 600;
     margin-bottom: 12px;
 }
 
 .card p {
     color: #495057;
     margin: 0;
+    font-size: 15px;
 }
 
-/* Rodapé (Tarefa 2) */
+/* Rodapé */
 footer {
-    background-color: #1b4965; /* Cor principal */
+    background-color: #1b4965;
     color: #ffffff;
     text-align: center;
     padding: 25px 0;
     font-size: 14px;
+    font-weight: 400;
 }
