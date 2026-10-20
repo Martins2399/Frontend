@@ -3,44 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exemplo: Divs vs Semântica</title>
+    <title>Exercício 2 - Estruturação e Semântica HTML</title>
 </head>
 <body>
 
-    <!-- EXEMPLO RUIM / APENAS DIVS -->
-    <div id="cabecalho">
-        <h1>Meu Site (Com Divs)</h1>
-        <div id="menu">
-            <a href="#">Home</a> | <a href="#">Sobre</a>
+    <!-- ======================================================
+         PARTE 1: COMPARAÇÃO DIRETA (DIVs vs SEMÂNTICA)
+         ====================================================== -->
+    
+    <!-- EXEMPLO APENAS COM DIVS (NÃO SEMÂNTICO) -->
+    <div id="cabecalho-div">
+        <h1>Meu Site (Estrutura Antiga com Divs)</h1>
+        <div id="menu-div">
+            <a href="#">Início</a> | <a href="#">Sobre</a>
         </div>
     </div>
-    <div id="conteudo">
-        <div class="artigo">
-            <h2>Título do Artigo</h2>
-            <p>Texto explicativo sobre o conteúdo...</p>
+    <div id="conteudo-div">
+        <div class="artigo-div">
+            <h2>Artigo Genérico</h2>
+            <p>Este bloco usa apenas divs sem significado estrutural para o navegador.</p>
         </div>
     </div>
-    <div id="rodape">
-        <p>&copy; 2026 - Todos os direitos reservados</p>
+    <div id="rodape-div">
+        <p>&copy; 2026 - Exemplo com Divs</p>
     </div>
 
     <hr>
 
-    <!-- EXEMPLO ADEQUADO / HTML SEMÂNTICO -->
+    <!-- ======================================================
+         PARTE 2: PÁGINA COM ESTRUTURA SEMÂNTICA COMPLETA
+         ====================================================== -->
+
+    <!-- CABEÇALHO DA PÁGINA -->
     <header>
-        <h1>Meu Site (Com Semântica)</h1>
+        <h1>Portal de Tecnologia e Desenvolvimento Web</h1>
+        
+        <!-- NAVEGAÇÃO PRINCIPAL -->
         <nav>
-            <a href="#">Home</a> | <a href="#">Sobre</a>
+            <ul>
+                <li><a href="#inicio">Início</a></li>
+                <li><a href="#sobre">Sobre o Curso</a></li>
+                <li><a href="#modulos">Módulos</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
         </nav>
     </header>
+
+    <!-- CONTEÚDO PRINCIPAL (Apenas um elemento main por página) -->
     <main>
-        <article>
-            <h2>Título do Artigo</h2>
-            <p>Texto explicativo sobre o conteúdo...</p>
-        </article>
+        
+        <!-- SEÇÃO: SOBRE -->
+        <section id="sobre">
+            <h2>Sobre o Curso</h2>
+            <p>Aprenda as melhores práticas do desenvolvimento front-end com HTML5 semântico, CSS3 e JavaScript.</p>
+        </section>
+
+        <!-- SEÇÃO: MÓDULOS -->
+        <section id="modulos">
+            <h2>Módulos do Aprendizado</h2>
+            <article>
+                <h3>Módulo 1: Introdução ao HTML Semântico</h3>
+                <p>Uso adequado de tags como header, nav, main, section, article e footer para melhorar acessibilidade e SEO.</p>
+            </article>
+            <article>
+                <h3>Módulo 2: Estilização com CSS</h3>
+                <p>Criação de layouts modernos e responsivos.</p>
+            </article>
+        </section>
+
     </main>
+
+    <!-- RODAPÉ DA PÁGINA -->
     <footer>
-        <p>&copy; 2026 - Todos os direitos reservados</p>
+        <p>&copy; 2026 - Desenvolvido para a prática de HTML Semântico.</p>
     </footer>
 
 </body>

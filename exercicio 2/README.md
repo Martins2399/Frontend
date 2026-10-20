@@ -1,10 +1,25 @@
-# Diferença entre Div e HTML Semântico
+# Exercício 2 - Comparação entre Divs e HTML Semântico
 
-## Tag <div>
-- É um contêiner **genérico**, ou seja, não possui nenhum significado semântico por si só.
-- O navegador e leitores de tela não sabem o que tem dentro dela apenas olhando a tag.
-- Deve ser usada quando não há nenhuma tag mais específica disponível para o agrupamento.
+## 1. Diferença entre `<div>` e HTML Semântico
 
-## HTML Semântico
-- São tags que **dão significado** ao conteúdo que envolvem (ex: `<header>`, `<nav>`, `<main>`, `<section>`, `<footer>`).
-- Facilitam a leitura do código por outros desenvolvedores, melhoram a manutenção e são essenciais para a **acessibilidade** (leitores de tela para pessoas com deficiência visual) e SEO (indexação em mecanismos de busca).
+* **Tag `<div>`**:
+  - É um contêiner **genérico** e sem valor semântico.
+  - Não passa nenhuma informação para o navegador, leitores de tela ou mecanismos de busca (SEO) sobre o tipo de conteúdo que contém.
+  - Deve ser usada como última opção, apenas para fins de agrupamento e estilização quando não houver tag específica.
+
+* **HTML Semântico** (`<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<footer>`):
+  - Oferece **significado explícito** ao conteúdo.
+  - Melhora drasticamente a **acessibilidade** (ajudando leitores de tela para pessoas com deficiência visual).
+  - Facilita a **manutenção do código** e a leitura por outros desenvolvedores.
+  - Otimiza o **SEO**, ajudando motores de busca (como o Google) a indexar a página corretamente.
+
+---
+
+## 2. Estrutura Utilizada na Parte 2
+
+* `<header>`: Cabeçalho com o título principal.
+* `<nav>`: Menu de navegação com lista de links.
+* `<main>`: Conteúdo principal único do documento.
+* `<section>`: Seções temáticas ("Sobre" e "Módulos").
+* `<article>`: Blocos de conteúdo autônomo dentro dos módulos.
+* `<footer>`: Rodapé do documento.
