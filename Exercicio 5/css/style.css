@@ -1,0 +1,144 @@
+/* RESET E ESTILOS BASE (MOBILE FIRST) */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f4f6f9;
+    color: #333;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* HEADER E NAVEGAÇÃO */
+header {
+    background-color: #1e293b;
+    color: #ffffff;
+    padding: 1.25rem 1rem;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: #38bdf8;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+nav a {
+    display: block;
+    color: #f8fafc;
+    text-decoration: none;
+    padding: 0.75rem 1rem;
+    background-color: #334155;
+    border-radius: 6px;
+    font-weight: 600;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+nav a:hover, nav a.active {
+    background-color: #0284c7;
+}
+
+/* CONTEÚDO PRINCIPAL */
+main {
+    flex: 1;
+    padding: 1.5rem 1rem;
+    max-width: 1000px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* SEÇÃO HERO / BOAS-VINDAS */
+.hero {
+    background-color: #ffffff;
+    padding: 2rem 1.25rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.hero h2 {
+    color: #0f172a;
+    font-size: 1.6rem;
+    margin-bottom: 0.75rem;
+}
+
+.hero p {
+    color: #475569;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* BOTÕES DE AÇÃO COM ÁREA DE CLIQUE CONFORTÁVEL */
+.btn-cta {
+    display: inline-block;
+    width: 100%;
+    background-color: #0284c7;
+    color: #ffffff;
+    padding: 0.875rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn-cta:hover {
+    background-color: #0369a1;
+}
+
+/* PÁGINA DE PORTFÓLIO */
+.portfolio-card {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.portfolio-card h2 {
+    color: #0f172a;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #38bdf8;
+    padding-bottom: 0.5rem;
+}
+
+.portfolio-section {
+    margin-bottom: 1.25rem;
+}
+
+.portfolio-section h3 {
+    color: #1e293b;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.portfolio-section ul {
+    list-style-position: inside;
+    color: #475569;
+}
+
+/* RODAPÉ */
+footer {
+    background-color: #1e293b;
+    color: #94a3b8;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.875rem;
+    margin-top: auto;
+}
