@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Início - Sistema de Cadastro e Tarefas</title>
+    <title>Gerenciamento de Tarefas - Sistema de Cadastro e Tarefas</title>
     <!-- Bootstrap 5 CSS via CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- SQLite WebAssembly sql.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
     <!-- CSS Externo -->
     <link rel="stylesheet" href="css/style.css">
-    <!-- Adicionar no <head> de index.html, cadastro.html, tarefas.html e api-demo.html -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
 </head>
 <body class="d-flex flex-column min-vh-100 bg-light">
 
@@ -22,9 +22,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="index.html">Início</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html">Início</a></li>
                     <li class="nav-item"><a class="nav-link" href="cadastro.html">Cadastro (CEP)</a></li>
-                    <li class="nav-item"><a class="nav-link" href="tarefas.html">Tarefas</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="tarefas.html">Tarefas</a></li>
                     <li class="nav-item"><a class="nav-link" href="api-demo.html">API Demo</a></li>
                 </ul>
             </div>
@@ -32,15 +32,52 @@
     </nav>
 
     <!-- Conteúdo Principal -->
-    <main class="container my-5">
-        <div class="p-5 mb-4 bg-white rounded-3 shadow-sm text-center">
-            <h1 class="display-5 fw-bold text-dark">Sistema de Cadastro e Tarefas</h1>
-            <p class="col-md-10 fs-5 mx-auto text-muted mt-3">
-                Bem-vindo ao SysControl! Esta plataforma integra consulta automatizada de CEP via API, gerenciamento completo de tarefas e consumo de web APIs externas.
-            </p>
-            <div class="d-flex justify-content-center gap-3 mt-4">
-                <a href="cadastro.html" class="btn btn-primary btn-lg">Novo Cadastro</a>
-                <a href="tarefas.html" class="btn btn-outline-secondary btn-lg">Gerenciar Tarefas</a>
+    <main class="container my-5" style="max-width: 900px;">
+        
+        <!-- Formulário de Adicionar / Editar Tarefa -->
+        <div class="card shadow-sm border-0 p-4 bg-white mb-4">
+            <h4 id="formTituloTarefa" class="card-title mb-3 fw-bold text-dark">Nova Tarefa (SQLite)</h4>
+            
+            <form id="formTarefa">
+                <input type="hidden" id="tarefaId">
+                <div class="row g-3">
+                    <div class="col-12 col-md-6">
+                        <label for="titulo" class="form-label fw-bold">Título *</label>
+                        <input type="text" class="form-control" id="titulo" placeholder="O que precisa ser feito?" required>
+                    </div>
+
+                    <div class="col-12 col-md-3">
+                        <label for="prioridade" class="form-label fw-bold">Prioridade</label>
+                        <select class="form-select" id="prioridade">
+                            <option value="Baixa">Baixa</option>
+                            <option value="Média" selected>Média</option>
+                            <option value="Alta">Alta</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="descricao" class="form-label fw-bold">Descrição</label>
+                        <textarea class="form-control" id="descricao" rows="2" placeholder="Detalhes da tarefa..."></textarea>
+                    </div>
+
+                    <div class="col-12 d-flex gap-2 mt-3">
+                        <button type="submit" id="btnSalvarTarefa" class="btn btn-primary btn-lg fw-bold flex-fill">+ Adicionar Tarefa</button>
+                        <button type="button" id="btnCancelarEdicao" class="btn btn-outline-secondary btn-lg fw-bold d-none">Cancelar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Cabeçalho da Listagem -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="fw-bold text-dark mb-0">Minhas Tarefas</h3>
+        </div>
+
+        <!-- Container da Lista de Tarefas -->
+        <div id="listaTarefasSqlite" class="row g-3">
+            <!-- Renderizado dinamicamente via JS/SQLite -->
+            <div class="col-12 text-center py-4">
+                <p class="text-muted">Carregando tarefas do banco SQLite...</p>
             </div>
         </div>
     </main>
@@ -52,7 +89,7 @@
         </div>
     </footer>
 
-    <!-- Bootstrap 5 JS Bundle e Script Externo -->
+    <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/script.js"></script>
 </body>

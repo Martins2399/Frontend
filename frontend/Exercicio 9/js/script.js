@@ -1,12 +1,11 @@
-// Variável global para armazenar a instância do banco SQLite
 let db = null;
 const CHAVE_DB_LOCAL = "syscontrol_sqlite_db";
 
 document.addEventListener('DOMContentLoaded', async () => {
-    // TAREFA 3: Inicializar o banco SQLite no navegador
+    // 1. Inicializar SQLite WebAssembly
     await iniciarBanco();
 
-    // Código das demais páginas (CEP, Cadastro, API Demo)
+    // 2. Eventos da página cadastro.html (Consulta CEP e Cadastro)
     const inputCep = document.querySelector('#cep');
     if (inputCep) {
         inputCep.addEventListener('blur', () => {
@@ -23,8 +22,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (formCadastro) {
         formCadastro.addEventListener('submit', (e) => {
             e.preventDefault();
-            
-            // Exemplo de INSERT em cadastro ao submeter o formulário
             const nome = document.querySelector('#nome').value;
             const email = document.querySelector('#email').value;
             const telefone = document.querySelector('#telefone').value;
@@ -42,6 +39,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
+    // 3. Eventos da página api-demo.html
     const listaDemoTarefas = document.querySelector('#listaDemoTarefas');
     if (listaDemoTarefas) {
         carregarTarefasDemo();
@@ -50,15 +48,27 @@ document.addEventListener('DOMContentLoaded', async () => {
             btnRecarregar.addEventListener('click', carregarTarefasDemo);
         }
     }
+
+    // 4. Eventos da página tarefas.html (CRUD SQLite)
+    const formTarefa = document.querySelector('#formTarefa');
+    if (formTarefa) {
+        formTarefa.addEventListener('submit', salvarTarefaSqlite);
+        
+        const btnCancelar = document.querySelector('#btnCancelarEdicao');
+        if (btnCancelar) {
+            btnCancelar.addEventListener('click', limparFormularioTarefa);
+        }
+
+        renderizarTarefasSqlite();
+    }
 });
 
 // ==========================================
-// PARTE 4: INTEGRACÃO SQLITE WEBASSEMBLY (sql.js)
+// SQLITE WEBASSEMBLY (sql.js)
 // ==========================================
 
 async function iniciarBanco() {
     try {
-        // TAREFA 1 e 2: Carregamento do sql.js via CDN
         const SQL = await initSqlJs({
             locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${file}`
         });
@@ -72,20 +82,14 @@ async function iniciarBanco() {
         } else {
             db = new SQL.Database();
             criarTabelas();
-            executarTestesIniciais();
             salvarBancoLocal();
-            console.log("Novo banco SQLite criado e tabelas inicializadas.");
+            console.log("Novo banco SQLite criado.");
         }
-
-        // TAREFA 8: Executar SELECT de teste e mostrar no console
-        testarSelectConsole();
-
     } catch (error) {
-        console.error("Erro ao inicializar o banco SQLite no navegador:", error);
+        console.error("Erro ao inicializar o banco SQLite:", error);
     }
 }
 
-// TAREFA 4 e 5: Criação das tabelas cadastros e tarefas
 function criarTabelas() {
     const sqlSchema = `
         CREATE TABLE IF NOT EXISTS cadastros (
@@ -115,31 +119,13 @@ function criarTabelas() {
     db.run(sqlSchema);
 }
 
-// Persistência do banco SQLite binário no localStorage
 function salvarBancoLocal() {
     if (!db) return;
     const data = db.export();
     localStorage.setItem(CHAVE_DB_LOCAL, JSON.stringify(Array.from(data)));
 }
 
-// TAREFA 6 e 7: Testes de INSERT para cadastro e tarefa
-function executarTestesIniciais() {
-    // Inserção de teste na tabela cadastros
-    const insertCadastro = `
-        INSERT INTO cadastros (nome, email, telefone, cep, rua, numero, bairro, cidade, estado, observacoes)
-        VALUES ('Italo Carlos', 'italo@exemplo.com', '(31) 99999-9999', '30130-010', 'Avenida Afonso Pena', '1000', 'Centro', 'Belo Horizonte', 'MG', 'Usuário administrador de teste.');
-    `;
-    db.run(insertCadastro);
-
-    // Inserção de teste na tabela tarefas
-    const insertTarefa = `
-        INSERT INTO tarefas (titulo, descricao, prioridade, concluida)
-        VALUES ('Estudar SQLite WebAssembly', 'Validar funcionamento do sql.js no navegador', 'Alta', 0);
-    `;
-    db.run(insertTarefa);
-}
-
-// Inserção dinâmica de novos cadastros vindos do formulário
+// Inserir Cadastro (Formulário)
 function salvarCadastroNoBanco(nome, email, telefone, cep, rua, numero, bairro, cidade, estado, observacoes) {
     if (!db) return;
     const query = `
@@ -148,40 +134,164 @@ function salvarCadastroNoBanco(nome, email, telefone, cep, rua, numero, bairro, 
     `;
     db.run(query, [nome, email, telefone, cep, rua, numero, bairro, cidade, estado, observacoes]);
     salvarBancoLocal();
-    testarSelectConsole();
 }
 
-// TAREFA 8: SELECT para testar e exibir os registros no console
-function testarSelectConsole() {
+// ==========================================
+// CRUD DE TAREFAS (tarefas.html)
+// ==========================================
+
+function renderizarTarefasSqlite() {
+    const container = document.querySelector('#listaTarefasSqlite');
+    if (!container || !db) return;
+
+    container.innerHTML = '';
+
+    const stmt = db.prepare("SELECT * FROM tarefas ORDER BY id DESC;");
+    const tarefas = [];
+    while (stmt.step()) {
+        tarefas.push(stmt.getAsObject());
+    }
+    stmt.free();
+
+    if (tarefas.length === 0) {
+        container.innerHTML = `
+            <div class="col-12 text-center py-4 text-muted">
+                <p class="h5">Nenhuma tarefa cadastrada no SQLite.</p>
+            </div>
+        `;
+        return;
+    }
+
+    tarefas.forEach(tarefa => {
+        const col = document.createElement('div');
+        col.className = 'col-12 col-md-6';
+
+        const badgePrioridade = tarefa.prioridade === 'Alta' ? 'bg-danger' : (tarefa.prioridade === 'Média' ? 'bg-warning text-dark' : 'bg-info text-dark');
+        const statusBadge = tarefa.concluida ? '<span class="badge bg-success">Concluída</span>' : '<span class="badge bg-secondary">Pendente</span>';
+
+        col.innerHTML = `
+            <div class="card h-100 shadow-sm border-0 ${tarefa.concluida ? 'bg-light opacity-75' : ''}">
+                <div class="card-body d-flex flex-column justify-content-between p-3">
+                    <div>
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h5 class="card-title fw-bold mb-0 ${tarefa.concluida ? 'text-decoration-line-through text-muted' : 'text-dark'}">
+                                ${tarefa.titulo}
+                            </h5>
+                            <div>
+                                <span class="badge ${badgePrioridade}">${tarefa.prioridade}</span>
+                                ${statusBadge}
+                            </div>
+                        </div>
+                        <p class="card-text text-muted small mb-3">${tarefa.descricao || 'Sem descrição.'}</p>
+                    </div>
+
+                    <div class="d-flex gap-2 pt-2 border-top">
+                        <button onclick="alternarConcluidaSqlite(${tarefa.id}, ${tarefa.concluida})" class="btn btn-sm ${tarefa.concluida ? 'btn-secondary' : 'btn-success'} flex-fill">
+                            ${tarefa.concluida ? 'Desmarcar' : 'Concluir'}
+                        </button>
+                        <button onclick="carregarEdicaoSqlite(${tarefa.id})" class="btn btn-sm btn-outline-warning flex-fill">Editar</button>
+                        <button onclick="removerTarefaSqlite(${tarefa.id})" class="btn btn-sm btn-outline-danger flex-fill">Remover</button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        container.appendChild(col);
+    });
+}
+
+// Adicionar ou Atualizar Tarefa (INSERT / UPDATE)
+function salvarTarefaSqlite(e) {
+    e.preventDefault();
     if (!db) return;
 
-    console.log("--- REGISTROS DA TABELA 'cadastros' ---");
-    const stmtCadastros = db.prepare("SELECT * FROM cadastros;");
-    while (stmtCadastros.step()) {
-        console.log(stmtCadastros.getAsObject());
-    }
-    stmtCadastros.free();
+    const id = document.querySelector('#tarefaId').value;
+    const titulo = document.querySelector('#titulo').value.trim();
+    const prioridade = document.querySelector('#prioridade').value;
+    const descricao = document.querySelector('#descricao').value.trim();
 
-    console.log("--- REGISTROS DA TABELA 'tarefas' ---");
-    const stmtTarefas = db.prepare("SELECT * FROM tarefas;");
-    while (stmtTarefas.step()) {
-        console.log(stmtTarefas.getAsObject());
+    if (!titulo) return;
+
+    if (id) {
+        // UPDATE
+        const query = "UPDATE tarefas SET titulo = ?, prioridade = ?, descricao = ? WHERE id = ?;";
+        db.run(query, [titulo, prioridade, descricao, parseInt(id)]);
+    } else {
+        // INSERT
+        const query = "INSERT INTO tarefas (titulo, descricao, prioridade, concluida) VALUES (?, ?, ?, 0);";
+        db.run(query, [titulo, descricao, prioridade]);
     }
-    stmtTarefas.free();
+
+    salvarBancoLocal();
+    limparFormularioTarefa();
+    renderizarTarefasSqlite();
 }
 
-// Funções anteriores mantidas (CEP e API Demo)...
+// Alternar Conclusão (UPDATE)
+function alternarConcluidaSqlite(id, estadoAtual) {
+    if (!db) return;
+    const novoEstado = estadoAtual ? 0 : 1;
+    db.run("UPDATE tarefas SET concluida = ? WHERE id = ?;", [novoEstado, id]);
+    salvarBancoLocal();
+    renderizarTarefasSqlite();
+}
+
+// Carregar para Edição
+function carregarEdicaoSqlite(id) {
+    if (!db) return;
+    const stmt = db.prepare("SELECT * FROM tarefas WHERE id = ?;");
+    stmt.bind([id]);
+    if (stmt.step()) {
+        const tarefa = stmt.getAsObject();
+        document.querySelector('#tarefaId').value = tarefa.id;
+        document.querySelector('#titulo').value = tarefa.titulo;
+        document.querySelector('#prioridade').value = tarefa.prioridade;
+        document.querySelector('#descricao').value = tarefa.descricao || '';
+
+        document.querySelector('#formTituloTarefa').innerText = 'Editar Tarefa';
+        document.querySelector('#btnSalvarTarefa').innerText = 'Salvar Alterações';
+        document.querySelector('#btnCancelarEdicao').classList.remove('d-none');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    stmt.free();
+}
+
+// Remover Tarefa (DELETE)
+function removerTarefaSqlite(id) {
+    if (!db) return;
+    if (confirm("Deseja realmente excluir esta tarefa?")) {
+        db.run("DELETE FROM tarefas WHERE id = ?;", [id]);
+        salvarBancoLocal();
+        renderizarTarefasSqlite();
+    }
+}
+
+function limparFormularioTarefa() {
+    document.querySelector('#tarefaId').value = '';
+    document.querySelector('#formTarefa').reset();
+    document.querySelector('#prioridade').value = 'Média';
+    document.querySelector('#formTituloTarefa').innerText = 'Nova Tarefa (SQLite)';
+    document.querySelector('#btnSalvarTarefa').innerText = '+ Adicionar Tarefa';
+    document.querySelector('#btnCancelarEdicao').classList.add('d-none');
+}
+
+// ==========================================
+// CONSULTA CEP (cadastro.html)
+// ==========================================
+
 async function consultarCEP(cep) {
     const url = `https://viacep.com.br/ws/${cep}/json/`;
     try {
         const response = await fetch(url);
-        if (!response.ok) throw new Error('Erro ao consultar o serviço de CEP.');
+        if (!response.ok) throw new Error('Erro ao consultar CEP.');
         const dados = await response.json();
+
         if (dados.erro) {
-            mostrarAlertaCep("CEP não encontrado na base de dados dos Correios.", "warning");
+            mostrarAlertaCep("CEP não encontrado.", "warning");
             limparCamposEndereco();
             return;
         }
+
         document.querySelector('#rua').value = dados.logradouro || '';
         document.querySelector('#bairro').value = dados.bairro || '';
         document.querySelector('#cidade').value = dados.localidade || '';
@@ -189,7 +299,7 @@ async function consultarCEP(cep) {
         ocultarAlertaCep();
     } catch (error) {
         console.error("Erro na requisição:", error);
-        mostrarAlertaCep("Não foi possível realizar a consulta do CEP. Verifique sua conexão.", "danger");
+        mostrarAlertaCep("Erro ao consultar o CEP.", "danger");
         limparCamposEndereco();
     }
 }
@@ -217,6 +327,10 @@ function ocultarAlertaCep() {
         alerta.innerText = '';
     }
 }
+
+// ==========================================
+// DEMO API REST (api-demo.html)
+// ==========================================
 
 async function carregarTarefasDemo() {
     const container = document.querySelector('#listaDemoTarefas');

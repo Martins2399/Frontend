@@ -1,16 +1,19 @@
 # Sistema de Cadastro e Tarefas com Consulta CEP, APIs e SQLite - Exercício 9
 
 ## Objetivo do Projeto
-Aplicação web responsiva desenvolvida para gerenciamento de cadastros de usuários, consulta automatizada de CEP via API ViaCEP, demonstração de consumo de API REST (JSONPlaceholder) e persistência de dados relacional utilizando **SQLite no navegador**.
+Aplicação web responsiva completa desarrollada para gerenciamento de cadastros de usuários com preenchimento automático de endereço via API ViaCEP, demonstração de consumo de API REST (JSONPlaceholder) e um sistema completo de CRUD de tarefas integrado a um banco de dados relacional **SQLite executado no navegador**.
 
-## Execução do SQLite no Navegador (WebAssembly)
-Como este é um projeto voltado para frontend hospedado via GitHub Pages / arquivos estáticos, o banco de dados **SQLite** é executado inteiramente no navegador do usuário utilizando a biblioteca **`sql.js` (SQLite compilado para WebAssembly)**. O arquivo binário do banco é sincronizado automaticamente com o `localStorage` do navegador para garantir a persistência dos dados entre recarregamentos de página.
+## Como Abrir e Testar o Projeto
+1. Clone ou baixe este repositório (`frontend`).
+2. Navegue até a pasta `frontend/Exercicio 9/`.
+3. Abra o arquivo `index.html`. 
+   > **Observação Técnica importante:** Devido às restrições de segurança de CORS dos navegadores modernos para carregamento de arquivos binários de WebAssembly (`.wasm`), recomenda-se abrir o projeto utilizando um servidor de desenvolvimento local (como a extensão **Live Server** no VS Code) ou publicá-lo via **GitHub Pages**.
 
 ## Tecnologias Utilizadas
 - HTML5 Semântico e CSS3
 - Bootstrap 5.3 (via CDN)
-- JavaScript (ES6+ com async/await)
-- SQLite WebAssembly (`sql.js`)
+- JavaScript (ES6+ com `async/await`, `fetch` e JSON)
+- SQLite WebAssembly (`sql.js`) sincronizado com o `localStorage`
 - APIs Públicas (ViaCEP e JSONPlaceholder)
 
 ## Estrutura do Projeto
@@ -25,8 +28,3 @@ frontend/Exercicio 9/
 ├── js/
 │   └── script.js
 └── img/
-
-## Como Abrir o Projeto
-1. Clone ou baixe este repositório (`frontend`).
-2. Navegue até a pasta `frontend/Exercicio 9/`.
-3. Abra o arquivo `index.html` utilizando um servidor local (como a extensão **Live Server** no VS Code) para garantir o carregamento correto do WebAssembly, ou acesse via GitHub Pages.
