@@ -13,45 +13,15 @@ const botoesFiltro = document.querySelectorAll('[data-filtro]');
 const alertaFormulario = document.querySelector('#alertaFormulario');
 const contadorChars = document.querySelector('#contadorChars');
 
-// Array de tarefas temporárias
-let tarefas = [
-    {
-        id: 1,
-        titulo: "Finalizar relatório de entregas",
-        descricao: "Revisar os tópicos do relatório quinzenal do projeto.",
-        prioridade: "Alta",
-        dataLimite: "2026-10-30",
-        concluida: false
-    },
-    {
-        id: 2,
-        titulo: "Estudar conceitos de DOM e SQLite",
-        descricao: "Ler a documentação e praticar a manipulação de elementos com JS.",
-        prioridade: "Média",
-        dataLimite: "2026-11-02",
-        concluida: false
-    },
-    {
-        id: 3,
-        titulo: "Comprar suprimentos para o escritório",
-        descricao: "Adquirir papéis, canetas e organizadores de mesa.",
-        prioridade: "Baixa",
-        dataLimite: "2026-11-05",
-        concluida: true
-    }
-];
-
 let filtroAtual = 'todas';
 
-// TAREFA 2 & 3: Função de validação do formulário com retorno estruturado e feedback visual
+// Validação do Formulário com feedback visual
 function validarFormulario() {
     let ehValido = true;
     const erros = [];
 
-    // Limpa validações anteriores
     limparErrosVisuais();
 
-    // 1. Regra: Título Obrigatório (TAREFA 1)
     const titulo = inputTitulo.value.trim();
     if (!titulo) {
         ehValido = false;
@@ -59,16 +29,14 @@ function validarFormulario() {
         erros.push('Informe o título da tarefa.');
     }
 
-    // 2. Regra: Prioridade Obrigatória (baixa, média ou alta) (TAREFA 1)
     const prioridade = inputPrioridade.value;
     const prioridadesValidas = ['Baixa', 'Média', 'Alta'];
     if (!prioridade || !prioridadesValidas.includes(prioridade)) {
         ehValido = false;
-        marcarCampoInvalido(inputPrioridade, 'Selecione uma prioridade válida (Baixa, Média ou Alta).');
+        marcarCampoInvalido(inputPrioridade, 'Selecione uma prioridade válida.');
         erros.push('Selecione uma prioridade válida.');
     }
 
-    // 3. Regra: Data Limite deve ser válida (TAREFA 1)
     const dataLimite = inputDataLimite.value;
     if (!dataLimite || isNaN(Date.parse(dataLimite))) {
         ehValido = false;
@@ -76,24 +44,21 @@ function validarFormulario() {
         erros.push('Informe uma data limite válida.');
     }
 
-    // 4. Regra: Descrição com tamanho máximo de 200 caracteres (TAREFA 1)
     const descricao = inputDescricao.value.trim();
     if (descricao.length > 200) {
         ehValido = false;
         marcarCampoInvalido(inputDescricao, 'A descrição deve ter no máximo 200 caracteres.');
-        erros.push('Descrição excede o limite de 200 caracteres.');
+        erros.push('Descrição excede 200 caracteres.');
     }
 
-    // TAREFA 3: Exibe alerta resumo se houver erros (Sem usar alert do navegador)
     if (!ehValido && alertaFormulario) {
-        alertaFormulario.innerHTML = `<strong>Atenção!</strong> Por favor, corrija os erros abaixo:<br>- ${erros.join('<br>- ')}`;
+        alertaFormulario.innerHTML = `<strong>Atenção!</strong> Corrija as pendências abaixo:<br>- ${erros.join('<br>- ')}`;
         alertaFormulario.classList.remove('d-none');
     }
 
-    return { ehValido, erros };
+    return ehValido;
 }
 
-// TAREFA 3: Aplica as classes do Bootstrap para feedback visual
 function marcarCampoInvalido(elemento, mensagem) {
     elemento.classList.add('is-invalid');
     const divFeedback = elemento.nextElementSibling;
@@ -102,7 +67,6 @@ function marcarCampoInvalido(elemento, mensagem) {
     }
 }
 
-// Reseta o estado visual dos campos
 function limparErrosVisuais() {
     [inputTitulo, inputPrioridade, inputDataLimite, inputDescricao].forEach(el => {
         if (el) el.classList.remove('is-invalid');
@@ -113,14 +77,12 @@ function limparErrosVisuais() {
     }
 }
 
-// Atualiza o contador visual de caracteres da descrição
 function atualizarContadorChars() {
     if (inputDescricao && contadorChars) {
         contadorChars.innerText = inputDescricao.value.length;
     }
 }
 
-// Retorna badge de cor segundo a prioridade
 function getBadgePrioridade(prioridade) {
     switch (prioridade) {
         case 'Alta': return 'bg-danger';
@@ -130,19 +92,16 @@ function getBadgePrioridade(prioridade) {
     }
 }
 
-// Renderização das tarefas
+// Renderizar Tarefas vindas do SQLite (SELECT)
 function renderizarTarefas() {
     if (!listaTarefasContainer) return;
 
     listaTarefasContainer.innerHTML = '';
 
-    let tarefasFiltradas = tarefas.filter(t => {
-        if (filtroAtual === 'pendentes') return !t.concluida;
-        if (filtroAtual === 'concluidas') return t.concluida;
-        return true;
-    });
+    // Chamada do SELECT via SQLite
+    const tarefas = dbObterTarefas(filtroAtual);
 
-    if (tarefasFiltradas.length === 0) {
+    if (tarefas.length === 0) {
         listaTarefasContainer.innerHTML = `
             <div class="col-12 text-center py-4 text-muted">
                 <p class="h5">Nenhuma tarefa encontrada neste filtro.</p>
@@ -151,7 +110,7 @@ function renderizarTarefas() {
         return;
     }
 
-    tarefasFiltradas.forEach(tarefa => {
+    tarefas.forEach(tarefa => {
         const col = document.createElement('div');
         col.className = 'col-12 col-md-6';
 
@@ -172,11 +131,11 @@ function renderizarTarefas() {
                     </div>
 
                     <div class="d-flex gap-2 pt-2 border-top">
-                        <button onclick="alternarConcluida(${tarefa.id})" class="btn btn-sm ${tarefa.concluida ? 'btn-secondary' : 'btn-success'} flex-fill">
+                        <button onclick="alternarConcluidaHandler(${tarefa.id}, ${tarefa.concluida})" class="btn btn-sm ${tarefa.concluida ? 'btn-secondary' : 'btn-success'} flex-fill">
                             ${tarefa.concluida ? 'Desmarcar' : 'Concluir'}
                         </button>
                         <button onclick="carregarParaEdicao(${tarefa.id})" class="btn btn-sm btn-outline-warning flex-fill">Editar</button>
-                        <button onclick="removerTarefa(${tarefa.id})" class="btn btn-sm btn-outline-danger flex-fill">Remover</button>
+                        <button onclick="removerTarefaHandler(${tarefa.id})" class="btn btn-sm btn-outline-danger flex-fill">Remover</button>
                     </div>
                 </div>
             </div>
@@ -186,15 +145,11 @@ function renderizarTarefas() {
     });
 }
 
-// Salvar tarefa com execução da validação
+// Handler de Salvar (INSERT / UPDATE)
 function salvarTarefa(event) {
     event.preventDefault();
 
-    // Executa a validação antes de processar os dados
-    const resultadoValidacao = validarFormulario();
-    if (!resultadoValidacao.ehValido) {
-        return; // Interrompe se o formulário for inválido
-    }
+    if (!validarFormulario()) return;
 
     const id = inputId.value;
     const titulo = inputTitulo.value.trim();
@@ -203,45 +158,34 @@ function salvarTarefa(event) {
     const descricao = inputDescricao.value.trim();
 
     if (id) {
-        const tarefa = tarefas.find(t => t.id === parseInt(id));
-        if (tarefa) {
-            tarefa.titulo = titulo;
-            tarefa.prioridade = prioridade;
-            tarefa.dataLimite = dataLimite;
-            tarefa.descricao = descricao;
-        }
+        // UPDATE
+        dbAtualizarTarefa(parseInt(id), titulo, prioridade, dataLimite, descricao);
     } else {
-        const novaTarefa = {
-            id: Date.now(),
-            titulo,
-            prioridade,
-            dataLimite,
-            descricao,
-            concluida: false
-        };
-        tarefas.push(novaTarefa);
+        // INSERT
+        dbAdicionarTarefa(titulo, prioridade, dataLimite, descricao);
     }
 
     limparFormulario();
     renderizarTarefas();
 }
 
-function alternarConcluida(id) {
-    const tarefa = tarefas.find(t => t.id === id);
-    if (tarefa) {
-        tarefa.concluida = !tarefa.concluida;
+// Handler para alternar conclusão (UPDATE)
+function alternarConcluidaHandler(id, estadoAtual) {
+    dbAlternarConcluida(id, !estadoAtual);
+    renderizarTarefas();
+}
+
+// Handler para remover (DELETE)
+function removerTarefaHandler(id) {
+    if (confirm("Deseja realmente remover esta tarefa do banco SQLite?")) {
+        dbRemoverTarefa(id);
         renderizarTarefas();
     }
 }
 
-function removerTarefa(id) {
-    if (confirm("Deseja realmente remover esta tarefa?")) {
-        tarefas = tarefas.filter(t => t.id !== id);
-        renderizarTarefas();
-    }
-}
-
+// Carregar dados no formulário para edição
 function carregarParaEdicao(id) {
+    const tarefas = dbObterTarefas('todas');
     const tarefa = tarefas.find(t => t.id === id);
     if (!tarefa) return;
 
@@ -283,7 +227,11 @@ function configurarFiltros() {
     });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+// Inicialização da aplicação com SQLite
+document.addEventListener('DOMContentLoaded', async () => {
+    // Inicializa o banco SQLite
+    await initDatabase();
+
     if (formTarefa) {
         formTarefa.addEventListener('submit', salvarTarefa);
     }
