@@ -13,10 +13,10 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    overflow-x: hidden; /* Evita rolagem horizontal indesejada */
+    overflow-x: hidden;
 }
 
-/* HEADER E MENU RESPONSIVO (HAMBÚRGUER COM CHECKBOX) */
+/* HEADER E MENU RESPONSIVO */
 header {
     background-color: #1e293b;
     color: #ffffff;
@@ -38,12 +38,11 @@ header h1 {
     color: #38bdf8;
 }
 
-/* Checkbox oculto para controle do menu */
+/* Checkbox Oculto e Botão Hambúrguer */
 .menu-toggle {
     display: none;
 }
 
-/* Ícone Hambúrguer */
 .menu-icon {
     display: flex;
     flex-direction: column;
@@ -62,14 +61,12 @@ header h1 {
     transition: all 0.3s ease;
 }
 
-/* Esconde o menu nav no celular por padrão */
 nav {
     display: none;
     width: 100%;
     margin-top: 1rem;
 }
 
-/* Exibe o menu quando o checkbox for marcado */
 .menu-toggle:checked ~ nav {
     display: block;
 }
@@ -90,11 +87,17 @@ nav a {
     border-radius: 6px;
     font-weight: 600;
     text-align: center;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
+/* Efeitos :hover e :focus no Menu */
 nav a:hover, nav a.active {
     background-color: #0284c7;
+}
+
+nav a:focus, a:focus, button:focus, input:focus, textarea:focus {
+    outline: 3px solid #38bdf8;
+    outline-offset: 2px;
 }
 
 /* CONTEÚDO PRINCIPAL */
@@ -106,7 +109,7 @@ main {
     width: 100%;
 }
 
-/* SEÇÃO HERO / BOAS-VINDAS */
+/* SEÇÃO HERO */
 .hero {
     background-color: #ffffff;
     padding: 2rem 1.25rem;
@@ -128,10 +131,9 @@ main {
     margin-bottom: 1.5rem;
 }
 
-/* BOTÕES DE AÇÃO */
-.btn-cta {
+/* BOTÕES E LINKS COM HOVER E FOCUS */
+.btn-cta, .btn-detalhes, .btn-voltar, .btn-submit {
     display: inline-block;
-    width: 100%;
     background-color: #0284c7;
     color: #ffffff;
     padding: 0.875rem 1.5rem;
@@ -139,15 +141,32 @@ main {
     text-decoration: none;
     font-weight: bold;
     text-align: center;
+    border: none;
+    cursor: pointer;
     font-size: 1rem;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.btn-cta:hover {
+.btn-cta {
+    width: 100%;
+}
+
+.btn-cta:hover, .btn-detalhes:hover, .btn-submit:hover {
     background-color: #0369a1;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* GALERIA DE PRODUTOS (MOBILE: 1 COLUNA) */
+.btn-voltar {
+    background-color: #64748b;
+}
+
+.btn-voltar:hover {
+    background-color: #475569;
+    transform: translateY(-2px);
+}
+
+/* GALERIA DE PRODUTOS (CSS GRID MOBILE FIRST) */
 .page-title {
     color: #0f172a;
     font-size: 1.6rem;
@@ -169,12 +188,12 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card-produto:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
 .produto-img-placeholder {
@@ -207,22 +226,6 @@ main {
     font-weight: bold;
     color: #0284c7;
     margin-bottom: 1rem;
-}
-
-.btn-detalhes {
-    display: block;
-    background-color: #0284c7;
-    color: #ffffff;
-    text-decoration: none;
-    padding: 0.625rem 1rem;
-    border-radius: 6px;
-    text-align: center;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-}
-
-.btn-detalhes:hover {
-    background-color: #0369a1;
 }
 
 /* DETALHES DO PRODUTO */
@@ -260,30 +263,15 @@ main {
     color: #475569;
 }
 
-.btn-voltar {
-    display: inline-block;
-    background-color: #64748b;
-    color: #ffffff;
-    text-decoration: none;
-    padding: 0.625rem 1.25rem;
-    border-radius: 6px;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-}
-
-.btn-voltar:hover {
-    background-color: #475569;
-}
-
-/* PORTFÓLIO E CONTATO */
-.portfolio-card, .contato-card {
+/* PORTFÓLIO */
+.portfolio-card {
     background-color: #ffffff;
     padding: 1.5rem;
     border-radius: 8px;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-.portfolio-card h2, .contato-card h2 {
+.portfolio-card h2 {
     color: #0f172a;
     font-size: 1.5rem;
     margin-bottom: 1rem;
@@ -306,6 +294,49 @@ main {
     color: #475569;
 }
 
+/* FORMULÁRIO DE CONTATO */
+.contato-card {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.contato-card h2 {
+    color: #0f172a;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.contato-card p {
+    color: #475569;
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 0.375rem;
+}
+
+.form-group input, .form-group textarea {
+    padding: 0.75rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:hover, .form-group textarea:hover {
+    border-color: #94a3b8;
+}
+
 /* RODAPÉ */
 footer {
     background-color: #1e293b;
@@ -316,24 +347,22 @@ footer {
     margin-top: auto;
 }
 
-/* ==========================================================================
-   BREAKPOINTS (MEDIA QUERIES)
-   ========================================================================== */
+/* BREAKPOINTS (MEDIA QUERIES) */
 
 /* TABLET (>= 768px) */
 @media (min-width: 768px) {
     .menu-icon {
-        display: none; /* Esconde o botão hambúrguer no tablet/desktop */
+        display: none;
     }
 
     nav {
-        display: block !important; /* Exibe o menu sempre visível */
+        display: block !important;
         width: auto;
         margin-top: 0;
     }
 
     nav ul {
-        flex-direction: row; /* Menu na horizontal */
+        flex-direction: row;
         gap: 1rem;
     }
 
@@ -342,28 +371,20 @@ footer {
         padding: 0.5rem 0.75rem;
     }
 
-    nav a:hover, nav a.active {
-        background-color: #334155;
-    }
-
     .produtos-grid {
-        grid-template-columns: repeat(2, 1fr); /* 2 colunas no tablet */
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .btn-cta {
-        width: auto; /* Botão no tamanho do texto */
+        width: auto;
         padding: 0.875rem 2rem;
     }
 }
 
 /* DESKTOP (>= 1024px) */
 @media (min-width: 1024px) {
-    header h1 {
-        font-size: 1.6rem;
-    }
-
     .produtos-grid {
-        grid-template-columns: repeat(3, 1fr); /* 3 colunas no desktop */
+        grid-template-columns: repeat(3, 1fr);
     }
 
     main {

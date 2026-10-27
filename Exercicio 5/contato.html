@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Início - Loja Responsiva - Exercício 5</title>
+    <title>Contato - Loja Responsiva - Exercício 5</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -11,7 +11,6 @@
         <div class="header-container">
             <h1>TechStore</h1>
             
-            <!-- Controle do Menu Hambúrguer Sem JS -->
             <input type="checkbox" id="menu-toggle" class="menu-toggle">
             <label for="menu-toggle" class="menu-icon">
                 <span></span>
@@ -21,20 +20,43 @@
 
             <nav>
                 <ul>
-                    <li><a href="index.html" class="active">Início</a></li>
+                    <li><a href="index.html">Início</a></li>
                     <li><a href="produtos.html">Produtos</a></li>
                     <li><a href="portfolio.html">Portfólio</a></li>
-                    <li><a href="contato.html">Contato</a></li>
+                    <li><a href="contato.html" class="active">Contato</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <main>
-        <section class="hero">
-            <h2>Bem-vindo à TechStore</h2>
-            <p>Sua loja de tecnologia e eletrônicos de alta performance com navegação adaptada para todos os dispositivos.</p>
-            <a href="produtos.html" class="btn-cta">Ver Galeria de Produtos</a>
+        <section class="contato-card">
+            <h2>Fale Conosco</h2>
+            <p>Preencha o formulário abaixo para tirar dúvidas, enviar sugestões ou solicitar suporte.</p>
+
+            <form action="#" method="POST">
+                <div class="form-group">
+                    <label for="nome">Nome Completo</label>
+                    <input type="text" id="nome" name="nome" placeholder="Digite seu nome" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="assunto">Assunto</label>
+                    <input type="text" id="assunto" name="assunto" placeholder="Assunto da mensagem" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="mensagem">Mensagem</label>
+                    <textarea id="mensagem" name="mensagem" rows="5" placeholder="Escreva sua mensagem aqui..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">Enviar Mensagem</button>
+            </form>
         </section>
     </main>
 
