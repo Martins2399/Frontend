@@ -1,0 +1,8 @@
+/* Estilos globais customizados para o Exercício 9 */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar-brand {
+    letter-spacing: 0.5px;
+}
