@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Início - Sistema de Cadastro e Tarefas</title>
+    <title>Cadastro - Sistema de Cadastro e Tarefas</title>
     <!-- Bootstrap 5 CSS via CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- CSS Externo -->
@@ -20,8 +20,8 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="index.html">Início</a></li>
-                    <li class="nav-item"><a class="nav-link" href="cadastro.html">Cadastro (CEP)</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html">Início</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="cadastro.html">Cadastro (CEP)</a></li>
                     <li class="nav-item"><a class="nav-link" href="tarefas.html">Tarefas</a></li>
                     <li class="nav-item"><a class="nav-link" href="api-demo.html">API Demo</a></li>
                 </ul>
@@ -29,17 +29,76 @@
         </div>
     </nav>
 
-    <!-- Conteúdo Principal -->
-    <main class="container my-5">
-        <div class="p-5 mb-4 bg-white rounded-3 shadow-sm text-center">
-            <h1 class="display-5 fw-bold text-dark">Sistema de Cadastro e Tarefas</h1>
-            <p class="col-md-10 fs-5 mx-auto text-muted mt-3">
-                Bem-vindo ao SysControl! Esta plataforma integra consulta automatizada de CEP via API, gerenciamento completo de tarefas e consumo de web APIs externas.
-            </p>
-            <div class="d-flex justify-content-center gap-3 mt-4">
-                <a href="cadastro.html" class="btn btn-primary btn-lg">Novo Cadastro</a>
-                <a href="tarefas.html" class="btn btn-outline-secondary btn-lg">Gerenciar Tarefas</a>
-            </div>
+    <!-- Conteúdo Principal: Formulário de Cadastro com Consulta CEP -->
+    <main class="container my-5" style="max-width: 800px;">
+        <div class="card shadow-sm border-0 p-4 bg-white">
+            <h2 class="mb-4 text-dark fw-bold text-center">Cadastro de Usuário com Consulta CEP</h2>
+
+            <!-- Alerta para mensagens de erro/sucesso do CEP -->
+            <div id="alertaCep" class="alert d-none" role="alert"></div>
+
+            <form id="formCadastro">
+                <div class="row g-3">
+                    <!-- Dados Pessoais -->
+                    <div class="col-12 col-md-6">
+                        <label for="nome" class="form-label fw-bold">Nome Completo *</label>
+                        <input type="text" class="form-control" id="nome" placeholder="Digite seu nome" required>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <label for="email" class="form-label fw-bold">E-mail *</label>
+                        <input type="email" class="form-control" id="email" placeholder="seuemail@exemplo.com" required>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <label for="telefone" class="form-label fw-bold">Telefone *</label>
+                        <input type="tel" class="form-control" id="telefone" placeholder="(00) 00000-0000" required>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <label for="cep" class="form-label fw-bold">CEP *</label>
+                        <input type="text" class="form-control" id="cep" placeholder="00000-000" maxlength="9" required>
+                        <div class="form-text">Digite o CEP para preencher o endereço automaticamente.</div>
+                    </div>
+
+                    <!-- Endereço -->
+                    <div class="col-12 col-md-9">
+                        <label for="rua" class="form-label fw-bold">Rua / Logradouro *</label>
+                        <input type="text" class="form-control" id="rua" required>
+                    </div>
+
+                    <div class="col-12 col-md-3">
+                        <label for="numero" class="form-label fw-bold">Número *</label>
+                        <input type="text" class="form-control" id="numero" placeholder="Ex: 123" required>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <label for="bairro" class="form-label fw-bold">Bairro *</label>
+                        <input type="text" class="form-control" id="bairro" required>
+                    </div>
+
+                    <div class="col-12 col-md-5">
+                        <label for="cidade" class="form-label fw-bold">Cidade *</label>
+                        <input type="text" class="form-control" id="cidade" required>
+                    </div>
+
+                    <div class="col-12 col-md-3">
+                        <label for="estado" class="form-label fw-bold">Estado (UF) *</label>
+                        <input type="text" class="form-control" id="estado" maxlength="2" required>
+                    </div>
+
+                    <!-- Observações -->
+                    <div class="col-12">
+                        <label for="observacoes" class="form-label fw-bold">Observações</label>
+                        <textarea class="form-control" id="observacoes" rows="3" placeholder="Informações adicionais..."></textarea>
+                    </div>
+
+                    <!-- Botão de Envio -->
+                    <div class="col-12 d-grid mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg fw-bold">Cadastrar Usuário</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </main>
 
@@ -50,7 +109,7 @@
         </div>
     </footer>
 
-    <!-- Bootstrap 5 JS Bundle e Script Externo -->
+    <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/script.js"></script>
 </body>

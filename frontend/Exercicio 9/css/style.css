@@ -1,8 +1,14 @@
-/* Estilos globais customizados para o Exercício 9 */
+/* Estilos personalizados para o Formulário e Inputs */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
 }
 
-.navbar-brand {
-    letter-spacing: 0.5px;
+.card {
+    border-radius: 12px;
+}
+
+.form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
 }
