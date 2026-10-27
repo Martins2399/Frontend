@@ -83,7 +83,7 @@ main {
     margin-bottom: 1.5rem;
 }
 
-/* BOTÕES DE AÇÃO COM ÁREA DE CLIQUE CONFORTÁVEL */
+/* BOTÕES DE AÇÃO */
 .btn-cta {
     display: inline-block;
     width: 100%;
@@ -102,7 +102,129 @@ main {
     background-color: #0369a1;
 }
 
-/* PÁGINA DE PORTFÓLIO */
+/* PARTE 3: CSS GRID NA GALERIA DE PRODUTOS */
+.page-title {
+    color: #0f172a;
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.produtos-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Mobile First: 1 coluna no celular */
+    gap: 1.5rem;
+}
+
+.card-produto {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.produto-img-placeholder {
+    width: 100%;
+    height: 160px;
+    background-color: #e2e8f0;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #64748b;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.card-produto h3 {
+    color: #0f172a;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-produto p {
+    color: #475569;
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+}
+
+.preco {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #0284c7;
+    margin-bottom: 1rem;
+}
+
+.btn-detalhes {
+    display: block;
+    background-color: #0284c7;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 0.625rem 1rem;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn-detalhes:hover {
+    background-color: #0369a1;
+}
+
+/* DETALHES DO PRODUTO */
+.detalhe-container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+}
+
+.detalhe-container h2 {
+    color: #0f172a;
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+}
+
+.detalhe-descricao {
+    color: #475569;
+    margin-bottom: 1.25rem;
+    font-size: 1rem;
+}
+
+.detalhe-caracteristicas {
+    margin-bottom: 1.5rem;
+}
+
+.detalhe-caracteristicas h3 {
+    color: #1e293b;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.detalhe-caracteristicas ul {
+    list-style-position: inside;
+    color: #475569;
+}
+
+.btn-voltar {
+    display: inline-block;
+    background-color: #64748b;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 0.625rem 1.25rem;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn-voltar:hover {
+    background-color: #475569;
+}
+
+/* PORTFÓLIO */
 .portfolio-card {
     background-color: #ffffff;
     padding: 1.5rem;
