@@ -1,5 +1,8 @@
-// Array inicial de produtos com ID único (TAREFA 4)
-let produtos = [
+// Chave do localStorage
+const CHAVE_LOCAL_STORAGE = "techstore_produtos";
+
+// Array inicial de produtos padrão para inicializar o sistema caso o localStorage esteja vazio
+const produtosIniciais = [
     {
         id: 1,
         nome: "Notebook Pro 15",
@@ -47,7 +50,33 @@ let produtos = [
     }
 ];
 
-// TAREFA 5: Atualiza os cards de resumo de métricas
+// Variable global que armazenará os produtos carregados
+let produtos = [];
+
+// TAREFA 1: Implementar salvarProdutos() usando localStorage.setItem e JSON.stringify
+function salvarProdutos() {
+    localStorage.setItem(CHAVE_LOCAL_STORAGE, JSON.stringify(produtos));
+}
+
+// TAREFA 2: Implementar carregarProdutos() usando localStorage.getItem e JSON.parse
+function carregarProdutos() {
+    const dadosSalvos = localStorage.getItem(CHAVE_LOCAL_STORAGE);
+    if (dadosSalvos) {
+        try {
+            produtos = JSON.parse(dadosSalvos);
+        } catch (e) {
+            console.error("Erro ao carregar dados do localStorage:", e);
+            produtos = [...produtosIniciais];
+            salvarProdutos();
+        }
+    } else {
+        // Se não houver dados, carrega os produtos padrão e salva no localStorage
+        produtos = [...produtosIniciais];
+        salvarProdutos();
+    }
+}
+
+// Atualiza os cards estatísticos de resumo
 function atualizarResumo(lista = produtos) {
     const totalProdutosEl = document.getElementById("totalProdutos");
     const produtosAtivosEl = document.getElementById("produtosAtivos");
@@ -57,21 +86,19 @@ function atualizarResumo(lista = produtos) {
 
     const total = lista.length;
     const ativos = lista.filter(p => p.status === "Ativo").length;
-    const valorTotal = lista.reduce((acc, p) => acc + (p.preco * p.estoque), 0);
+    const valorTotal = lista.reduce((acc, p) => acc + (Number(p.preco) * Number(p.estoque)), 0);
 
     totalProdutosEl.innerText = total;
     produtosAtivosEl.innerText = ativos;
     valorEstoqueEl.innerText = `R$ ${valorTotal.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 }
 
-// TAREFA 1: Função renderizarProdutos() para atualizar a tela sempre que o array mudar
+// Renderiza a lista de produtos na interface
 function renderizarProdutos(listaParaExibir = produtos) {
     const container = document.getElementById("listaProdutos");
     if (!container) return;
 
     container.innerHTML = "";
-
-    // Atualiza os cards estatísticos
     atualizarResumo(produtos);
 
     if (listaParaExibir.length === 0) {
@@ -103,10 +130,9 @@ function renderizarProdutos(listaParaExibir = produtos) {
                     <div>
                         <div class="mt-3 pt-3 border-top d-flex justify-content-between align-items-center mb-3">
                             <span class="text-muted small">Total em Estoque:</span>
-                            <span class="h6 mb-0 text-primary fw-bold">R$ ${(produto.preco * produto.estoque).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
+                            <span class="h6 mb-0 text-primary fw-bold">R$ ${(Number(produto.preco) * Number(produto.estoque)).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
                         </div>
 
-                        <!-- TAREFA 3: Botões de ação para Editar e Excluir -->
                         <div class="d-flex gap-2">
                             <button onclick="editarProduto(${produto.id})" class="btn btn-sm btn-outline-warning w-50">Editar</button>
                             <button onclick="excluirProduto(${produto.id})" class="btn btn-sm btn-outline-danger w-50">Excluir</button>
@@ -120,7 +146,7 @@ function renderizarProdutos(listaParaExibir = produtos) {
     });
 }
 
-// TAREFA 2: Filtrar produtos pelo nome através do campo de busca
+// Função de busca
 function buscarProdutos() {
     const campoBusca = document.getElementById("campoBusca");
     if (!campoBusca) return;
@@ -130,15 +156,16 @@ function buscarProdutos() {
     renderizarProdutos(filtrados);
 }
 
-// TAREFA 3: Excluir produto usando o ID único
+// TAREFA 3: Excluir produto e atualizar o localStorage
 function excluirProduto(id) {
     if (confirm("Tem certeza que deseja excluir este produto?")) {
         produtos = produtos.filter(p => p.id !== id);
-        buscarProdutos(); // Re-renderiza respeitando qualquer busca ativa
+        salvarProdutos(); // Atualiza o localStorage
+        buscarProdutos(); // Re-renderiza a tela
     }
 }
 
-// TAREFA 3: Editar produto usando o ID único
+// TAREFA 3: Editar produto e atualizar o localStorage
 function editarProduto(id) {
     const produto = produtos.find(p => p.id === id);
     if (!produto) return;
@@ -152,15 +179,15 @@ function editarProduto(id) {
     const novoEstoque = prompt("Novo Estoque:", produto.estoque);
     if (novoEstoque === null || isNaN(parseInt(novoEstoque, 10))) return;
 
-    // Atualização dos valores do objeto
     produto.nome = novoNome.trim();
     produto.preco = parseFloat(novoPreco);
     produto.estoque = parseInt(novoEstoque, 10);
 
-    buscarProdutos(); // Atualiza a tela imediatamente
+    salvarProdutos(); // Atualiza o localStorage
+    buscarProdutos(); // Atualiza a tela
 }
 
-// Função de cadastro de produtos
+// TAREFA 3: Cadastrar produto e atualizar o localStorage
 function cadastrarProduto(event) {
     event.preventDefault();
 
@@ -175,7 +202,6 @@ function cadastrarProduto(event) {
         return;
     }
 
-    // TAREFA 4: Gerar ID único automático (timestamp + random)
     const idUnico = Date.now() + Math.floor(Math.random() * 1000);
 
     const novoProduto = {
@@ -189,6 +215,7 @@ function cadastrarProduto(event) {
     };
 
     produtos.push(novoProduto);
+    salvarProdutos(); // Salva no localStorage
 
     const mensagemSucesso = document.getElementById("mensagemSucesso");
     if (mensagemSucesso) {
@@ -199,16 +226,21 @@ function cadastrarProduto(event) {
     document.getElementById("formCadastro").reset();
 }
 
-// Event Listeners Globais
+// Inicialização dos Scripts e Event Listeners
 document.addEventListener("DOMContentLoaded", () => {
+    // TAREFA 2: Carrega os produtos salvos no localStorage
+    carregarProdutos();
+
+    // Renderiza a listagem na página lista.html
     renderizarProdutos();
 
+    // Event listener do formulário de cadastro em cadastro.html
     const formCadastro = document.getElementById("formCadastro");
     if (formCadastro) {
         formCadastro.addEventListener("submit", cadastrarProduto);
     }
 
-    // TAREFA 2: Evento de digitação na busca
+    // Event listener do campo de busca em lista.html
     const campoBusca = document.getElementById("campoBusca");
     if (campoBusca) {
         campoBusca.addEventListener("input", buscarProdutos);
