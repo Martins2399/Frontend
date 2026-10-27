@@ -3,62 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loja Virtual - Contato</title>
+    <title>Contato - TechStore</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header>
-        <h1>Loja Virtual Exemplo</h1>
         <nav>
+            <div class="logo">TechStore</div>
             <ul>
                 <li><a href="index.html">Início</a></li>
                 <li><a href="produtos.html">Produtos</a></li>
-                <li><a href="contato.html">Contato</a></li>
+                <li><a href="contato.html" class="active">Contato</a></li>
             </ul>
         </nav>
     </header>
-    
+
     <main>
-        <section class="secao-contato">
-            <h2>Fale Conosco</h2>
-            <p>Preencha o formulário abaixo para tirar dúvidas, solicitar suporte ou efetuar pedidos de produtos.</p>
-            
-            <form action="#" method="POST" class="formulario-contato">
-                <div class="form-grupo">
-                    <label for="nome">Nome Completo:</label>
-                    <input type="text" id="nome" name="nome" required placeholder="Digite seu nome">
-                </div>
-
-                <div class="form-grupo">
-                    <label for="email">E-mail:</label>
-                    <input type="email" id="email" name="email" required placeholder="seuemail@exemplo.com">
-                </div>
-
-                <div class="form-grupo">
-                    <label for="assunto">Assunto / Produto de Interesse:</label>
-                    <select id="assunto" name="assunto" required>
-                        <option value="">Selecione uma opção</option>
-                        <option value="teclado">Teclado Mecânico Aurora</option>
-                        <option value="mouse">Mouse Gamer Pulse</option>
-                        <option value="headset">Headset Studio Lite</option>
-                        <option value="monitor">Monitor 24 Vision</option>
-                        <option value="mochila">Mochila TechPack</option>
-                        <option value="outro">Outro assunto</option>
-                    </select>
-                </div>
-
-                <div class="form-grupo">
-                    <label for="mensagem">Mensagem:</label>
-                    <textarea id="mensagem" name="mensagem" rows="5" required placeholder="Escreva sua mensagem aqui..."></textarea>
-                </div>
-
-                <button type="submit" class="botao-cta">Enviar Mensagem</button>
+        <div class="contato-container">
+            <div style="width: 100%; text-align: center; margin-bottom: 1rem;">
+                <h2>Fale Conosco</h2>
+                <p>Envie sua dúvida ou sugestão preenchendo o formulário abaixo.</p>
+            </div>
+            <form>
+                <input type="text" placeholder="Seu Nome" required>
+                <input type="email" placeholder="Seu E-mail" required>
+                <textarea rows="5" placeholder="Sua Mensagem" required></textarea>
+                <button type="submit">Enviar Mensagem</button>
             </form>
-        </section>
+        </div>
     </main>
 
     <footer>
-        <p>&copy; 2026 - Desenvolvido por Italo Martins</p>
+        <p>&copy; 2026 TechStore. Todos os direitos reservados.</p>
     </footer>
 </body>
 </html>

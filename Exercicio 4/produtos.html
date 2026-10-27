@@ -3,75 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loja Virtual - Produtos</title>
+    <title>Teclado Mecânico - TechStore</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header>
-        <h1>Loja Virtual Exemplo</h1>
         <nav>
+            <div class="logo">TechStore</div>
             <ul>
                 <li><a href="index.html">Início</a></li>
-                <li><a href="produtos.html">Produtos</a></li>
+                <li><a href="produtos.html" class="active">Produtos</a></li>
                 <li><a href="contato.html">Contato</a></li>
             </ul>
         </nav>
     </header>
-    
+
     <main>
-        <section class="secao-produtos">
-            <h2>Nossos Produtos</h2>
-            <p>Confira abaixo o catálogo de itens disponíveis em nossa loja com tecnologia de ponta.</p>
-            
-            <!-- Grade de Produtos usando Flexbox -->
-            <div class="produtos-grid">
-                
-                <!-- Produto 1 -->
-                <div class="produto-card">
-                    <h3>Teclado Mecânico Aurora</h3>
-                    <p>Teclado mecânico RGB com switches de alta durabilidade e ergonomia avançada.</p>
-                    <span class="preco">R$ 349,90</span>
-                    <a href="#" class="botao-detalhes">Ver Detalhes</a>
-                </div>
-
-                <!-- Produto 2 -->
-                <div class="produto-card">
-                    <h3>Mouse Gamer Pulse</h3>
-                    <p>Mouse ergonômico com sensor de alta precisão e iluminação LED customizável.</p>
-                    <span class="preco">R$ 159,90</span>
-                    <a href="#" class="botao-detalhes">Ver Detalhes</a>
-                </div>
-
-                <!-- Produto 3 -->
-                <div class="produto-card">
-                    <h3>Headset Studio Lite</h3>
-                    <p>Som estéreo envolvente e microfone com cancelamento de ruído para máxima imersão.</p>
-                    <span class="preco">R$ 229,90</span>
-                    <a href="#" class="botao-detalhes">Ver Detalhes</a>
-                </div>
-
-                <!-- Produto 4 -->
-                <div class="produto-card">
-                    <h3>Monitor 24 Vision</h3>
-                    <p>Monitor Full HD de 24 polegadas com taxa de atualização de 100Hz e cores vivas.</p>
-                    <span class="preco">R$ 899,90</span>
-                    <a href="#" class="botao-detalhes">Ver Detalhes</a>
-                </div>
-
-                <!-- Produto 5 -->
-                <div class="produto-card">
-                    <h3>Mochila TechPack</h3>
-                    <p>Mochila resistente à água com compartimento acolchoado seguro para notebook.</p>
-                    <span class="preco">R$ 199,90</span>
-                    <a href="#" class="botao-detalhes">Ver Detalhes</a>
-                </div>
-
+        <div class="detalhe-produto">
+            <img src="img/teclado.jpg" alt="Teclado Mecânico">
+            <div class="detalhe-info">
+                <h2>Teclado Mecânico RGB</h2>
+                <p class="preco">R$ 299,90</p>
+                <p>Teclado mecânico de alta performance com switches ópticos, iluminação RGB customizável e estrutura em alumínio escovado, ideal para jogos e produtividade.</p>
+                <a href="produtos.html" class="btn-detalhes" style="display: inline-block; width: 150px; text-align: center;">Voltar</a>
             </div>
-        </section>
+        </div>
     </main>
 
     <footer>
-        <p>&copy; 2026 - Desenvolvido por Italo Martins</p>
+        <p>&copy; 2026 TechStore. Todos os direitos reservados.</p>
     </footer>
 </body>
 </html>
