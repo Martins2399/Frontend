@@ -10,8 +10,10 @@ const formTitulo = document.querySelector('#formTitulo');
 const btnSalvar = document.querySelector('#btnSalvar');
 const btnCancelarEdicao = document.querySelector('#btnCancelarEdicao');
 const botoesFiltro = document.querySelectorAll('[data-filtro]');
+const alertaFormulario = document.querySelector('#alertaFormulario');
+const contadorChars = document.querySelector('#contadorChars');
 
-// Array de tarefas (inicialmente com dados de exemplo)
+// Array de tarefas temporárias
 let tarefas = [
     {
         id: 1,
@@ -41,6 +43,83 @@ let tarefas = [
 
 let filtroAtual = 'todas';
 
+// TAREFA 2 & 3: Função de validação do formulário com retorno estruturado e feedback visual
+function validarFormulario() {
+    let ehValido = true;
+    const erros = [];
+
+    // Limpa validações anteriores
+    limparErrosVisuais();
+
+    // 1. Regra: Título Obrigatório (TAREFA 1)
+    const titulo = inputTitulo.value.trim();
+    if (!titulo) {
+        ehValido = false;
+        marcarCampoInvalido(inputTitulo, 'O título é obrigatório.');
+        erros.push('Informe o título da tarefa.');
+    }
+
+    // 2. Regra: Prioridade Obrigatória (baixa, média ou alta) (TAREFA 1)
+    const prioridade = inputPrioridade.value;
+    const prioridadesValidas = ['Baixa', 'Média', 'Alta'];
+    if (!prioridade || !prioridadesValidas.includes(prioridade)) {
+        ehValido = false;
+        marcarCampoInvalido(inputPrioridade, 'Selecione uma prioridade válida (Baixa, Média ou Alta).');
+        erros.push('Selecione uma prioridade válida.');
+    }
+
+    // 3. Regra: Data Limite deve ser válida (TAREFA 1)
+    const dataLimite = inputDataLimite.value;
+    if (!dataLimite || isNaN(Date.parse(dataLimite))) {
+        ehValido = false;
+        marcarCampoInvalido(inputDataLimite, 'Informe uma data limite válida.');
+        erros.push('Informe uma data limite válida.');
+    }
+
+    // 4. Regra: Descrição com tamanho máximo de 200 caracteres (TAREFA 1)
+    const descricao = inputDescricao.value.trim();
+    if (descricao.length > 200) {
+        ehValido = false;
+        marcarCampoInvalido(inputDescricao, 'A descrição deve ter no máximo 200 caracteres.');
+        erros.push('Descrição excede o limite de 200 caracteres.');
+    }
+
+    // TAREFA 3: Exibe alerta resumo se houver erros (Sem usar alert do navegador)
+    if (!ehValido && alertaFormulario) {
+        alertaFormulario.innerHTML = `<strong>Atenção!</strong> Por favor, corrija os erros abaixo:<br>- ${erros.join('<br>- ')}`;
+        alertaFormulario.classList.remove('d-none');
+    }
+
+    return { ehValido, erros };
+}
+
+// TAREFA 3: Aplica as classes do Bootstrap para feedback visual
+function marcarCampoInvalido(elemento, mensagem) {
+    elemento.classList.add('is-invalid');
+    const divFeedback = elemento.nextElementSibling;
+    if (divFeedback && divFeedback.classList.contains('invalid-feedback')) {
+        divFeedback.innerText = mensagem;
+    }
+}
+
+// Reseta o estado visual dos campos
+function limparErrosVisuais() {
+    [inputTitulo, inputPrioridade, inputDataLimite, inputDescricao].forEach(el => {
+        if (el) el.classList.remove('is-invalid');
+    });
+    if (alertaFormulario) {
+        alertaFormulario.classList.add('d-none');
+        alertaFormulario.innerHTML = '';
+    }
+}
+
+// Atualiza o contador visual de caracteres da descrição
+function atualizarContadorChars() {
+    if (inputDescricao && contadorChars) {
+        contadorChars.innerText = inputDescricao.value.length;
+    }
+}
+
 // Retorna badge de cor segundo a prioridade
 function getBadgePrioridade(prioridade) {
     switch (prioridade) {
@@ -51,17 +130,16 @@ function getBadgePrioridade(prioridade) {
     }
 }
 
-// Renderiza as tarefas aplicando os filtros ativos
+// Renderização das tarefas
 function renderizarTarefas() {
     if (!listaTarefasContainer) return;
 
     listaTarefasContainer.innerHTML = '';
 
-    // TAREFA 4: Filtragem
     let tarefasFiltradas = tarefas.filter(t => {
         if (filtroAtual === 'pendentes') return !t.concluida;
         if (filtroAtual === 'concluidas') return t.concluida;
-        return true; // 'todas'
+        return true;
     });
 
     if (tarefasFiltradas.length === 0) {
@@ -93,7 +171,6 @@ function renderizarTarefas() {
                         </p>
                     </div>
 
-                    <!-- TAREFA 3: Botões de ação com handlers direcionados -->
                     <div class="d-flex gap-2 pt-2 border-top">
                         <button onclick="alternarConcluida(${tarefa.id})" class="btn btn-sm ${tarefa.concluida ? 'btn-secondary' : 'btn-success'} flex-fill">
                             ${tarefa.concluida ? 'Desmarcar' : 'Concluir'}
@@ -109,10 +186,15 @@ function renderizarTarefas() {
     });
 }
 
-// TAREFA 2: Função para adicionar ou salvar edição de tarefa
+// Salvar tarefa com execução da validação
 function salvarTarefa(event) {
-    // TAREFA 1: Prevenir comportamento padrão do formulário
     event.preventDefault();
+
+    // Executa a validação antes de processar os dados
+    const resultadoValidacao = validarFormulario();
+    if (!resultadoValidacao.ehValido) {
+        return; // Interrompe se o formulário for inválido
+    }
 
     const id = inputId.value;
     const titulo = inputTitulo.value.trim();
@@ -120,10 +202,7 @@ function salvarTarefa(event) {
     const dataLimite = inputDataLimite.value;
     const descricao = inputDescricao.value.trim();
 
-    if (!titulo || !dataLimite) return;
-
     if (id) {
-        // Modo Edição (TAREFA 3)
         const tarefa = tarefas.find(t => t.id === parseInt(id));
         if (tarefa) {
             tarefa.titulo = titulo;
@@ -132,7 +211,6 @@ function salvarTarefa(event) {
             tarefa.descricao = descricao;
         }
     } else {
-        // TAREFA 2: Nova Tarefa com ID único
         const novaTarefa = {
             id: Date.now(),
             titulo,
@@ -148,7 +226,6 @@ function salvarTarefa(event) {
     renderizarTarefas();
 }
 
-// TAREFA 3: Alternar o estado concluída (true/false)
 function alternarConcluida(id) {
     const tarefa = tarefas.find(t => t.id === id);
     if (tarefa) {
@@ -157,7 +234,6 @@ function alternarConcluida(id) {
     }
 }
 
-// TAREFA 3: Remover a tarefa selecionada
 function removerTarefa(id) {
     if (confirm("Deseja realmente remover esta tarefa?")) {
         tarefas = tarefas.filter(t => t.id !== id);
@@ -165,10 +241,11 @@ function removerTarefa(id) {
     }
 }
 
-// TAREFA 3: Carregar dados da tarefa no formulário para edição
 function carregarParaEdicao(id) {
     const tarefa = tarefas.find(t => t.id === id);
     if (!tarefa) return;
+
+    limparErrosVisuais();
 
     inputId.value = tarefa.id;
     inputTitulo.value = tarefa.titulo;
@@ -180,10 +257,10 @@ function carregarParaEdicao(id) {
     btnSalvar.innerText = 'Salvar Alterações';
     btnCancelarEdicao.classList.remove('d-none');
     
+    atualizarContadorChars();
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Reseta o formulário para o estado padrão
 function limparFormulario() {
     inputId.value = '';
     formTarefa.reset();
@@ -191,9 +268,10 @@ function limparFormulario() {
     formTitulo.innerText = 'Nova Tarefa';
     btnSalvar.innerText = '+ Adicionar Tarefa';
     btnCancelarEdicao.classList.add('d-none');
+    limparErrosVisuais();
+    atualizarContadorChars();
 }
 
-// Configuração dos eventos de filtro
 function configurarFiltros() {
     botoesFiltro.forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -205,7 +283,6 @@ function configurarFiltros() {
     });
 }
 
-// TAREFA 1: Escutar o evento submit no formulário
 document.addEventListener('DOMContentLoaded', () => {
     if (formTarefa) {
         formTarefa.addEventListener('submit', salvarTarefa);
@@ -213,6 +290,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (btnCancelarEdicao) {
         btnCancelarEdicao.addEventListener('click', limparFormulario);
+    }
+
+    if (inputDescricao) {
+        inputDescricao.addEventListener('input', atualizarContadorChars);
     }
 
     configurarFiltros();
