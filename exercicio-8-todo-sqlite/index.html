@@ -19,11 +19,12 @@
     <!-- Container Principal -->
     <main class="container my-5" style="max-width: 900px;">
         
-        <!-- Form de Nova Tarefa -->
+        <!-- Form de Nova/Editar Tarefa -->
         <div class="card shadow-sm border-0 mb-4">
             <div class="card-body p-4">
-                <h4 class="card-title mb-3 fw-bold text-dark">Nova Tarefa</h4>
+                <h4 id="formTitulo" class="card-title mb-3 fw-bold text-dark">Nova Tarefa</h4>
                 <form id="formTarefa">
+                    <input type="hidden" id="tarefaId">
                     <div class="row g-3">
                         <div class="col-12 col-md-6">
                             <label for="tituloTarefa" class="form-label fw-bold">Título</label>
@@ -45,17 +46,28 @@
                             <label for="descricaoTarefa" class="form-label fw-bold">Descrição</label>
                             <textarea class="form-control" id="descricaoTarefa" rows="2" placeholder="Descreva brevemente a tarefa..."></textarea>
                         </div>
-                        <div class="col-12 d-grid mt-3">
-                            <button type="submit" class="btn btn-primary btn-lg fw-bold">+ Adicionar Tarefa</button>
+                        <div class="col-12 d-flex gap-2 mt-3">
+                            <button type="submit" id="btnSalvar" class="btn btn-primary btn-lg fw-bold flex-fill">+ Adicionar Tarefa</button>
+                            <button type="button" id="btnCancelarEdicao" class="btn btn-outline-secondary btn-lg fw-bold d-none">Cancelar</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
 
-        <h4 class="fw-bold mb-3">Minhas Tarefas</h4>
+        <!-- Painel de Filtros e Cabeçalho -->
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3 gap-2">
+            <h4 class="fw-bold mb-0">Minhas Tarefas</h4>
+            
+            <!-- TAREFA 4: Filtros por estado -->
+            <div class="btn-group" role="group" aria-label="Filtro de tarefas">
+                <button type="button" class="btn btn-outline-primary active" data-filtro="todas">Todas</button>
+                <button type="button" class="btn btn-outline-primary" data-filtro="pendentes">Pendentes</button>
+                <button type="button" class="btn btn-outline-primary" data-filtro="concluidas">Concluídas</button>
+            </div>
+        </div>
 
-        <!-- Área Vazia id='listaTarefas' para Receber as Tarefas Dinamicamente -->
+        <!-- Área id='listaTarefas' para Receber as Tarefas Dinamicamente -->
         <div id="listaTarefas" class="row g-3">
             <!-- Cards gerados via JavaScript -->
         </div>
