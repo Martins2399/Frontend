@@ -3,41 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smartwatch Fit - TechStore</title>
+    <title>Início - Loja Responsiva - Exercício 5</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header>
-        <h1>TechStore - Loja Responsiva</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Início</a></li>
-                <li><a href="produtos.html" class="active">Produtos</a></li>
-                <li><a href="portfolio.html">Portfólio</a></li>
-                <li><a href="contato.html">Contato</a></li>
-            </ul>
-        </nav>
+        <div class="header-container">
+            <h1>TechStore</h1>
+            
+            <!-- Controle do Menu Hambúrguer Sem JS -->
+            <input type="checkbox" id="menu-toggle" class="menu-toggle">
+            <label for="menu-toggle" class="menu-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="active">Início</a></li>
+                    <li><a href="produtos.html">Produtos</a></li>
+                    <li><a href="portfolio.html">Portfólio</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
     <main>
-        <div class="detalhe-container">
-            <div class="produto-img-placeholder">Smartwatch Fit</div>
-            <h2>Smartwatch Fit</h2>
-            <div class="preco">R$ 349,90</div>
-            <p class="detalhe-descricao">Monitore seus batimentos cardíacos, qualidade de sono e mais de 15 modalidades esportivas diretamente do seu pulso.</p>
-            
-            <div class="detalhe-caracteristicas">
-                <h3>Características do Produto:</h3>
-                <ul>
-                    <li>Tela HD Touchscreen de 1.4"</li>
-                    <li>Sensor de oxigenação no sangue e frequência cardíaca</li>
-                    <li>Notificações de chamadas e mensagens</li>
-                    <li>Resistente à água (5 ATM)</li>
-                </ul>
-            </div>
-
-            <a href="produtos.html" class="btn-voltar">← Voltar à Galeria</a>
-        </div>
+        <section class="hero">
+            <h2>Bem-vindo à TechStore</h2>
+            <p>Sua loja de tecnologia e eletrônicos de alta performance com navegação adaptada para todos os dispositivos.</p>
+            <a href="produtos.html" class="btn-cta">Ver Galeria de Produtos</a>
+        </section>
     </main>
 
     <footer>
